@@ -14,4 +14,7 @@ public class BubbleSort {
 		for(int i=0;i<10;i++)System.out.println(vettore[i]);
 		input.close();
 	}
+	public void Stampa () {
+		System.out.println ("Funziona?");
+}
 }
