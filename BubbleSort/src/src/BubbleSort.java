@@ -18,3 +18,4 @@ public class BubbleSort {
 		System.out.println ("Funziona?");
 }
 }
+te piasse un colpo
