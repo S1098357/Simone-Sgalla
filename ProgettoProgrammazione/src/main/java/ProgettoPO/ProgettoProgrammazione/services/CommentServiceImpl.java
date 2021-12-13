@@ -3,7 +3,9 @@ package ProgettoPO.ProgettoProgrammazione.services;
 import java.util.ArrayList;
 import java.util.List;
 import ProgettoPO.ProgettoProgrammazione.entities.Comment;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CommentServiceImpl implements CommentService {
 
 	public List <Comment> list;
