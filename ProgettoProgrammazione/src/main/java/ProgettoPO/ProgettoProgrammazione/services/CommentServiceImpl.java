@@ -22,5 +22,17 @@ public class CommentServiceImpl implements CommentService {
 	public List<Comment> getComments() {
 		return list;
 	}
+	
+	@Override
+	public Comment getComment(long commentId) {
+		Comment c = null;
+		for (Comment comment: list) {
+			if (comment.getId() == commentId) {
+				c = comment;
+				break;
+			}
+		}
+		return c;
+	}
 
 }
