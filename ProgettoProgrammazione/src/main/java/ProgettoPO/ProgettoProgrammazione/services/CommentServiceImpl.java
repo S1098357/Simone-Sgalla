@@ -18,8 +18,7 @@ public class CommentServiceImpl implements CommentService {
 	
 	@Override
 	public List<Comment> getComments() {
-		
-		return null;
+		return list;
 	}
 
 }
