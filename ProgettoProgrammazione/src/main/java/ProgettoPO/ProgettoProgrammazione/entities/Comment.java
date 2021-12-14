@@ -25,7 +25,7 @@ public class Comment {
 		//contiene tutti i parametri singoli corrispondenti alle chiamate
 		String message;
 		String createdTime;
-		String id;
+		long id;
 		String permalinkUrl;
 		boolean canComment;
 		boolean canLike;		
@@ -36,7 +36,7 @@ public class Comment {
 		//contiene tutti i return delle chiamate singole
 		public String getMessage(){return message;}
 		public String getCreatedTime(){return createdTime;}
-		public String getId(){return id;}
+		public long getId(){return id;}
 		public String getPermalinkUrl(){return permalinkUrl;}
 		public boolean getCanComment(){return canComment;}
 		public boolean getCanLike(){return canLike;}
