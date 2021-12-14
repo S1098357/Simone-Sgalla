@@ -25,7 +25,7 @@ public class MyController {
 	
 	//riporta un singolo commento tramite id
 	@GetMapping("/comments/{id}")
-	public Comment getComment (@PathVariable long commentId) {
+	public Comment getComment (@PathVariable String commentId) {
 		return this.commentService.getComment(Long.parseLong(commentId));  //E' necessaria la conversione in long
                                                                                    //perchè nel Json l'id è di tipo long
 	}
