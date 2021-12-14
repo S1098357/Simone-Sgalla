@@ -32,7 +32,7 @@ public class CommentServiceImpl implements CommentService {
 	*/
 	
 	public JSONObject downloadApi() {
-		String url = "https://graph.facebook.com/101440919065369_101911985684929/comments?access_token=EAAcBZAami7SkBAIKW7vXBElZClHumEDGuoMqz3rn6JaMuPb5IZB6IOyJO6Gh6S06ErDuVEsDboiCNRlMNqLQqym7ZByz3d3Q9rJSMaZCvWZAryHoqNxpiZAZAZCk8IKwvhYWfO6GR78GNDYWsqp3ZB4cpncF8LSdjEQ8mIlipENiZBCEEzQTB5ZA3jPb3vM8tS1LSxMZD";
+		String url = "https://graph.facebook.com/101440919065369_101911985684929/comments?access_token=EAAcBZAami7SkBAIF32Jsm8FBlsvsi4Ws0GGL7fhLbusNLZCE708S4knLsWh1YxefwJ3kv6vi3tpsw7FfjkZC9Ke66HjQHaJRSp4gIY4R6ZAM0jk7cLw0GQt3oZAaWk7Co8cbaTZBselcbb3ZCBGZAZCxdVQVtvSFaZB4PPmMo6CiSS7cn28jil1iuc87tfyZAMrrErjEP0nuneSyNUDACe2wvSD";
 		try {
 			
 			URLConnection openConnection = new URL(url).openConnection();
