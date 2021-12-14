@@ -32,7 +32,7 @@ public class CommentServiceImpl implements CommentService {
 	*/
 	
 	public JSONObject downloadApi() {
-		String url = "https://graph.facebook.com/101440919065369_101911985684929/comments?access_token=EAAcBZAami7SkBAIF32Jsm8FBlsvsi4Ws0GGL7fhLbusNLZCE708S4knLsWh1YxefwJ3kv6vi3tpsw7FfjkZC9Ke66HjQHaJRSp4gIY4R6ZAM0jk7cLw0GQt3oZAaWk7Co8cbaTZBselcbb3ZCBGZAZCxdVQVtvSFaZB4PPmMo6CiSS7cn28jil1iuc87tfyZAMrrErjEP0nuneSyNUDACe2wvSD";
+		String url = "https://graph.facebook.com/101440919065369_101911985684929/comments?access_token=EAAcBZAami7SkBAIVM1TD4rqJ5rzZCqWtswD0li0zuv4DfekfR6e4GMEgVlaECg8TWfxpKvp6K3jU1W3rbbC4jS0jfgoFhSGPPmGjZCTMnKPZBZB9Q7fzpny5K0IQtQfUomxlPZCknbGEXcf6m95I3uiLanCFsxZBx3KKHrrw5wI0vTzKHDKOjsLBHFf2UxZBZAZBwZD";
 		try {
 			
 			URLConnection openConnection = new URL(url).openConnection();
@@ -63,20 +63,16 @@ public class CommentServiceImpl implements CommentService {
 	
 	@Override
 	public JSONObject getComments() {
-		//list = new ArrayList<>();
 		return this.downloadApi();
 	}
 	
 	@Override
-	public Comment getComment(long commentId) {
+	public Comment getComment(String id) {
 		Comment c = null;
-		for (Comment comment: list) {
-			if (comment.getId() == commentId) {
-				c = comment;
-				break;
-			}
-		}
-		return c;
+		Comment comment;
+		while (!(comment.getId().equals(this.downloadApi().get(id))));
+			c = comment;
+			return c;
 	}
 
 }

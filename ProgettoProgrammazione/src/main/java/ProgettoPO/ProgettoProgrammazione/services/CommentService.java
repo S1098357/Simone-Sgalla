@@ -7,6 +7,6 @@ import ProgettoPO.ProgettoProgrammazione.entities.Comment;
 public interface CommentService {
 
 	public JSONObject getComments() ;
-	public Comment getComment(long commentId);
+	public Comment getComment(String commentId);
 
 }
