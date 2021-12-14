@@ -1,5 +1,6 @@
 package ProgettoPO.ProgettoProgrammazione.entities;
 
+
 public class Comment {
 	
 	//contiene i parametri della chiamata a message tags
@@ -32,6 +33,13 @@ public class Comment {
 		boolean userLikes;
 		int commentCount;
 		int likeCount;
+		
+		
+		public Comment (long id, String createdTime, String message) {
+			this.id = id;
+			this.createdTime = createdTime;
+			this.message = message;
+		}
 		
 		//contiene tutti i return delle chiamate singole
 		public String getMessage(){return message;}

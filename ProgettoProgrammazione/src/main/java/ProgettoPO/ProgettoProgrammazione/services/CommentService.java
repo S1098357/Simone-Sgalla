@@ -1,11 +1,12 @@
 package ProgettoPO.ProgettoProgrammazione.services;
 
-import java.util.List;
+import org.json.simple.JSONObject;
+
 import ProgettoPO.ProgettoProgrammazione.entities.Comment;
 
 public interface CommentService {
 
-	public List<Comment> getComments();
+	public JSONObject getComments() ;
 	public Comment getComment(long commentId);
 
 }
