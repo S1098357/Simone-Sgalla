@@ -8,6 +8,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -19,22 +20,11 @@ import ProgettoPO.ProgettoProgrammazione.entities.Comment;
 
 @Service
 public class CommentServiceImpl implements CommentService {
-
-	public List <Comment> list;
+	public Vector <Comment> listaCommenti=new Vector<Comment>(); 
 	
-	//lista di costruttori
-	/*public CommentServiceImpl() {
-		list = new ArrayList<>();
-		list.add(new Comment (1,"15/10/2001","Ciao Mondo!"));
-		//metto in input i commenti dal file Json (ancora da fare)
-		
-	}
-	*/
 	
-	public JSONObject downloadApi() {
-		String url = "https://graph.facebook.com/101440919065369_101911985684929/comments?access_token=EAAcBZAami7SkBAIVM1TD4rqJ5rzZCqWtswD0li0zuv4DfekfR6e4GMEgVlaECg8TWfxpKvp6K3jU1W3rbbC4jS0jfgoFhSGPPmGjZCTMnKPZBZB9Q7fzpny5K0IQtQfUomxlPZCknbGEXcf6m95I3uiLanCFsxZBx3KKHrrw5wI0vTzKHDKOjsLBHFf2UxZBZAZBwZD";
+	public JSONObject downloadApi(String url) {
 		try {
-			
 			URLConnection openConnection = new URL(url).openConnection();
 			InputStream in = openConnection.getInputStream();
 			
@@ -44,7 +34,7 @@ public class CommentServiceImpl implements CommentService {
 			   InputStreamReader inR = new InputStreamReader( in );
 			   BufferedReader buf = new BufferedReader( inR );
 			  
-			   while ( ( line = buf.readLine() ) != null ) {
+			   while (( line = buf.readLine()) != null ) {
 				   data+= line;
 			   }
 			 } finally {
@@ -61,18 +51,75 @@ public class CommentServiceImpl implements CommentService {
 	}
 	
 	
+	
 	@Override
-	public JSONObject getComments() {
-		return this.downloadApi();
+	public JSONObject getPosts() {
+		return this.downloadApi("https://graph.facebook.com/me?fields=posts&access_token=EAAcBZAami7SkBAK56LhkerKwk4FHQmgpZC7urTtM4EsxdRhtS0Fo2qisPPBGNlVA5osPmXquRxgZC1ETdM3rN6V1tQFAO16qtMsdlxtrIcUWsDwGZAuw8NcWi8lY3q6vb5WIjDs3sZBpoh9V077WI4KW2Mr1ZBHJWMs3Il4zBHFQaJTA6oQjfZCqfahvlfqiGcZD");
+		}
+	
+	
+	@Override
+	public  Vector <Comment> getComments(String postId) {
+		String preUrl="https://graph.facebook.com/";
+		String id;
+		String postUrl="?fields=parent,id,message,from,created_time,permalink_url,can_comment,can_like,user_likes,comment_count,like_count&access_token=EAAcBZAami7SkBAK56LhkerKwk4FHQmgpZC7urTtM4EsxdRhtS0Fo2qisPPBGNlVA5osPmXquRxgZC1ETdM3rN6V1tQFAO16qtMsdlxtrIcUWsDwGZAuw8NcWi8lY3q6vb5WIjDs3sZBpoh9V077WI4KW2Mr1ZBHJWMs3Il4zBHFQaJTA6oQjfZCqfahvlfqiGcZD";
+		String postPostUrl="/comments?access_token=EAAcBZAami7SkBAK56LhkerKwk4FHQmgpZC7urTtM4EsxdRhtS0Fo2qisPPBGNlVA5osPmXquRxgZC1ETdM3rN6V1tQFAO16qtMsdlxtrIcUWsDwGZAuw8NcWi8lY3q6vb5WIjDs3sZBpoh9V077WI4KW2Mr1ZBHJWMs3Il4zBHFQaJTA6oQjfZCqfahvlfqiGcZD";
+		JSONObject prova=this.downloadApi(preUrl+postId+postPostUrl);
+		JSONArray obj=(JSONArray)prova.get("data");
+		for(int i=0;i<obj.size();i++)
+		{
+		prova=(JSONObject) obj.get(i);
+		id=(String)prova.get("id");
+		JSONObject commento=this.downloadApi(preUrl+id+postUrl);
+		this.listaCommenti.add(new Comment(commento));
+		id=(String)commento.get("id");
+		commento=this.downloadApi(preUrl+id+postPostUrl);
+		if(commento.get("data")!=null)
+			{
+			JSONArray risposte= (JSONArray) commento.get("data");
+				for(int j=0;j<risposte.size();j++)
+				{
+					commento=(JSONObject)risposte.get(j);
+					id=(String) commento.get("id");
+					this.listaCommenti.add(new Comment(this.downloadApi(preUrl+id+postUrl)));
+				}
+			}
+		
+		}
+		return listaCommenti;
 	}
+	
 	
 	@Override
 	public Comment getComment(String id) {
-		Comment c = null;
-		Comment comment;
-		while (!(comment.getId().equals(this.downloadApi().get(id))));
-			c = comment;
-			return c;
+		for (int i=0;i<listaCommenti.size();i++)
+		{
+			if(id.equals(listaCommenti.get(i).getId()))
+			{
+				return listaCommenti.get(i);
+			}
+		}
+		return null;
 	}
 
-}
+	
+	public Vector<Comment> getAllComments () {
+		this.listaCommenti.clear();
+		String id;
+		JSONObject prova=this.downloadApi("https://graph.facebook.com/101440919065369/posts?access_token=EAAcBZAami7SkBAK56LhkerKwk4FHQmgpZC7urTtM4EsxdRhtS0Fo2qisPPBGNlVA5osPmXquRxgZC1ETdM3rN6V1tQFAO16qtMsdlxtrIcUWsDwGZAuw8NcWi8lY3q6vb5WIjDs3sZBpoh9V077WI4KW2Mr1ZBHJWMs3Il4zBHFQaJTA6oQjfZCqfahvlfqiGcZD");
+		JSONArray obj=(JSONArray)prova.get("data");
+		for(int i=0;i<obj.size();i++)
+		{
+		prova=(JSONObject) obj.get(i);
+		id=(String)prova.get("id");
+		this.getComments(id);
+		}
+	return this.listaCommenti;
+	}
+		
+		
+	}
+
+
+
+

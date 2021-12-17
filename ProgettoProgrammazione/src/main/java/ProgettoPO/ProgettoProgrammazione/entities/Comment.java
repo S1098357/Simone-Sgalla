@@ -4,47 +4,44 @@ import org.json.simple.JSONObject;
 
 public class Comment {
 	
+	
 	static boolean Parent = false;
 	//contiene tutti i parametri singoli corrispondenti alle chiamate
 	        String id;
 	        String message;
 			String createdTime;
 			String permalinkUrl;
-			boolean canComment;
-			boolean canLike;		
-			boolean userLikes;
-			int commentCount;
-			int likeCount;
-		
-		//contiene i parametri della chiamata parent
-		String parentCreatedTime;
-		String parentFromName;
-		String parentFromId;
-		String parentMessage;
-		String parentId;
-		
+			Boolean canComment;
+			Boolean canLike;		
+			Boolean userLikes;
+			Long commentCount;
+			Long likeCount;
+			CommentParents parent;
+			String from;
 		
 		
 		public Comment (JSONObject commento) {
-			if (commento.get("parent")!=null) {
+				if (commento.get("parent")!=null) {
 				JSONObject parent = (JSONObject) commento.get("parent");
-				this.parentCreatedTime = (String)parent.get("createdTime");
-				JSONObject parentFrom = (JSONObject) parent.get("parent");
-				this.parentFromName = (String) parentFrom.get("name");
-				this.parentFromId = (String)parentFrom.get("id");
-				this.parentMessage = (String) parent.get("message");
-				this.parentId = (String) parent.get("id");
+				JSONObject parentFrom = (JSONObject) parent.get("from");
+				this.parent=new CommentParents((String)parent.get("created_time"),(String) parentFrom.get("name"),(String)parentFrom.get("id"),(String) parent.get("message"),(String) parent.get("id"));
 				Parent=true;
 			}
 			this.id = (String) commento.get("id");
 			this.message = (String) commento.get("message");
-			this.createdTime = (String) commento.get("createdTime");
-			this.permalinkUrl = (String) commento.get("permalinkUrl");
-			this.canComment = (Boolean) commento.get("canComment");
-			this.canLike = (Boolean) commento.get("canLike");
-			this.userLikes = (Boolean) commento.get("userLikes");
-			this.commentCount = (Integer) commento.get("commentCount");
-			this.likeCount = (Integer) commento.get("likeCount");
+			if(commento.get("from")!=null)
+			{
+			JSONObject prova=(JSONObject) commento.get("from");
+			this.from=(String)prova.get("name");
+			}
+			else this.from="non accessibile";
+			this.createdTime = (String) commento.get("created_time");
+			this.permalinkUrl = (String) commento.get("permalink_url");
+			this.canComment = (Boolean) commento.get("can_comment");
+			this.canLike = (Boolean) commento.get("can_like");
+			this.userLikes = (Boolean) commento.get("user_likes");
+			this.commentCount = (Long) commento.get("comment_count");
+			this.likeCount = (Long) commento.get("like_count");
 			
 		};
 		
@@ -54,30 +51,14 @@ public class Comment {
 		public String getCreatedTime(){return createdTime;}
 		public String getId(){return id;}
 		public String getPermalinkUrl(){return permalinkUrl;}
-		public boolean getCanComment(){return canComment;}
-		public boolean getCanLike(){return canLike;}
-		public boolean getUserLikes(){return userLikes;}
-		public int getCommentCount(){return commentCount;}
-		public int getLikeCount(){return likeCount;}
-		
+		public Boolean getCanComment(){return canComment;}
+		public Boolean getCanLike(){return canLike;}
+		public Boolean getUserLikes(){return userLikes;}
+		public Long getCommentCount(){return commentCount;}
+		public Long getLikeCount(){return likeCount;}
+		public CommentParents getParent() {return parent;}
+		public String getFrom() {return from;}
 
-		//contiene i return della chiamata parent
-		public String getParentFromName() {return parentFromName;}
-		public String getparentFromId() {return parentFromId;}
-		public String getparentMessage() {return parentMessage;}
-		public String getparentId() {return parentMessage;}
-		public String getParentCreatedTime() {return parentCreatedTime;}
-		
-		
-		//setta i parametri della chiamata parent
-		public void setParent(String parentCreatedTime,String parentFromName,String parentFromId,String parentMessage,String parentId)
-		{
-			this.parentCreatedTime=parentCreatedTime;
-			this.parentFromName=parentFromName;
-			this.parentFromId=parentFromId;
-			this.parentMessage=parentMessage;
-			this.parentId=parentId;
-		}
-		
+
 
 }
