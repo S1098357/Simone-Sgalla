@@ -2,18 +2,18 @@ package ProgettoPO.ProgettoProgrammazione.controller;
 
 
 import org.springframework.web.bind.annotation.RestController;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 
 import ProgettoPO.ProgettoProgrammazione.entities.Comment;
-import ProgettoPO.ProgettoProgrammazione.services.CommentService;
 import ProgettoPO.ProgettoProgrammazione.services.CommentServiceImpl;
 import ProgettoPO.ProgettoProgrammazione.stats.commentStats;
+import ProgettoPO.ProgettoProgrammazione.exceptions.postIdException;
 
-import java.util.List;
 import java.util.Vector;
 
 
@@ -33,8 +33,15 @@ public class MyController {
 
 	//riporta tutti i commenti
 	@GetMapping("/posts/{postId}/comments")
-	public Vector <Comment> getComments (@PathVariable String postId) {
-		return this.commentService.getComments(postId);
+	public Vector <Comment> getComments (@PathVariable String postId) throws postIdException {
+		JSONArray prova = (JSONArray) this.commentService.getPosts().get("data");
+		for (int i = 0; i<prova.size(); i++) {
+		JSONObject obj = (JSONObject) prova.get(i);
+		String id = (String) obj.get("id");
+		if (id.equals(postId)) return this.commentService.getComments(postId);
+		}
+		throw new postIdException();
+		//return this.commentService.getComments(postId); 
 	}
 	
 	//riporta un singolo commento tramite id
