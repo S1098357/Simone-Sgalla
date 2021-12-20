@@ -6,8 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Vector;
 
 import org.json.simple.JSONArray;
@@ -17,10 +16,13 @@ import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
 import ProgettoPO.ProgettoProgrammazione.entities.Comment;
+import ProgettoPO.ProgettoProgrammazione.entities.CommentError;
+import ProgettoPO.ProgettoProgrammazione.entities.CommentMethods;
+import ProgettoPO.ProgettoProgrammazione.exceptions.*;
 
 @Service
 public class CommentServiceImpl implements CommentService {
-	public Vector <Comment> listaCommenti=new Vector<Comment>(); 
+	public Vector <CommentMethods> listaCommenti=new Vector<CommentMethods>(); 
 	
 	
 	public JSONObject downloadApi(String url) {
@@ -43,9 +45,9 @@ public class CommentServiceImpl implements CommentService {
 			JSONObject obj = (JSONObject) JSONValue.parseWithException(data);	
 			return obj;
 		} catch (IOException | ParseException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		return null;
 	}
@@ -54,17 +56,26 @@ public class CommentServiceImpl implements CommentService {
 	
 	@Override
 	public JSONObject getPosts() {
-		return this.downloadApi("https://graph.facebook.com/me?fields=posts&access_token=EAAcBZAami7SkBAK56LhkerKwk4FHQmgpZC7urTtM4EsxdRhtS0Fo2qisPPBGNlVA5osPmXquRxgZC1ETdM3rN6V1tQFAO16qtMsdlxtrIcUWsDwGZAuw8NcWi8lY3q6vb5WIjDs3sZBpoh9V077WI4KW2Mr1ZBHJWMs3Il4zBHFQaJTA6oQjfZCqfahvlfqiGcZD");
+		return this.downloadApi("https://graph.facebook.com/me?fields=posts&access_token=EAAcBZAami7SkBALEEiq8kksXCZCOaDnDRg15d75XAmo2yKHfMgBojWDhaVatR6zAndCgveSvIAHZA6YTAO87vZCGOKTh2N8tWqc6oZBaT5r1Oes15P6I1UuAoCWSqDI5hi4RTKCoG3zzAIUIrlLdPIAjIbo4rsSHXJZBGhiQmYUBHoExMEgjdxYsepxWDDPMsZD");
 		}
 	
 	
 	@Override
-	public  Vector <Comment> getComments(String postId) {
+	public  Vector <CommentMethods> getComments(String postId) {
+		JSONObject prova=null;
 		String preUrl="https://graph.facebook.com/";
 		String id;
-		String postUrl="?fields=parent,id,message,from,created_time,permalink_url,can_comment,can_like,user_likes,comment_count,like_count&access_token=EAAcBZAami7SkBAK56LhkerKwk4FHQmgpZC7urTtM4EsxdRhtS0Fo2qisPPBGNlVA5osPmXquRxgZC1ETdM3rN6V1tQFAO16qtMsdlxtrIcUWsDwGZAuw8NcWi8lY3q6vb5WIjDs3sZBpoh9V077WI4KW2Mr1ZBHJWMs3Il4zBHFQaJTA6oQjfZCqfahvlfqiGcZD";
-		String postPostUrl="/comments?access_token=EAAcBZAami7SkBAK56LhkerKwk4FHQmgpZC7urTtM4EsxdRhtS0Fo2qisPPBGNlVA5osPmXquRxgZC1ETdM3rN6V1tQFAO16qtMsdlxtrIcUWsDwGZAuw8NcWi8lY3q6vb5WIjDs3sZBpoh9V077WI4KW2Mr1ZBHJWMs3Il4zBHFQaJTA6oQjfZCqfahvlfqiGcZD";
-		JSONObject prova=this.downloadApi(preUrl+postId+postPostUrl);
+		String postUrl="?fields=parent,id,message,from,created_time,permalink_url,can_comment,can_like,user_likes,comment_count,like_count&access_token=EAAcBZAami7SkBALEEiq8kksXCZCOaDnDRg15d75XAmo2yKHfMgBojWDhaVatR6zAndCgveSvIAHZA6YTAO87vZCGOKTh2N8tWqc6oZBaT5r1Oes15P6I1UuAoCWSqDI5hi4RTKCoG3zzAIUIrlLdPIAjIbo4rsSHXJZBGhiQmYUBHoExMEgjdxYsepxWDDPMsZD";
+		String postPostUrl="/comments?access_token=EAAcBZAami7SkBALEEiq8kksXCZCOaDnDRg15d75XAmo2yKHfMgBojWDhaVatR6zAndCgveSvIAHZA6YTAO87vZCGOKTh2N8tWqc6oZBaT5r1Oes15P6I1UuAoCWSqDI5hi4RTKCoG3zzAIUIrlLdPIAjIbo4rsSHXJZBGhiQmYUBHoExMEgjdxYsepxWDDPMsZD";
+		try {
+		prova=this.downloadApi(preUrl+postId+postPostUrl);
+		if (prova==null) throw new postIdException();
+		} catch (Exception e) {
+			CommentError a = new CommentError();
+			a.setErrore(new postIdException());
+			listaCommenti.add(a);
+		  return listaCommenti;
+		}
 		JSONArray obj=(JSONArray)prova.get("data");
 		for(int i=0;i<obj.size();i++)
 		{
@@ -91,28 +102,31 @@ public class CommentServiceImpl implements CommentService {
 	
 	
 	@Override
-	public Comment getComment(String id) {
+	public CommentMethods getComment(String id)  {
 		for (int i=0;i<listaCommenti.size();i++)
 		{
-			if(id.equals(listaCommenti.get(i).getId()))
+			if(id.equals(listaCommenti.get(i).retId()))
 			{
 				return listaCommenti.get(i);
 			}
 		}
-		return null;
+		CommentError a = new CommentError();
+		a.setErrore(new commentIdException());
+		return a;
+		
 	}
 
 	
-	public Vector<Comment> getAllComments () {
+	public Vector<CommentMethods> getAllComments () {
 		this.listaCommenti.clear();
 		String id;
-		JSONObject prova=this.downloadApi("https://graph.facebook.com/101440919065369/posts?access_token=EAAcBZAami7SkBAK56LhkerKwk4FHQmgpZC7urTtM4EsxdRhtS0Fo2qisPPBGNlVA5osPmXquRxgZC1ETdM3rN6V1tQFAO16qtMsdlxtrIcUWsDwGZAuw8NcWi8lY3q6vb5WIjDs3sZBpoh9V077WI4KW2Mr1ZBHJWMs3Il4zBHFQaJTA6oQjfZCqfahvlfqiGcZD");
+		JSONObject prova=this.downloadApi("https://graph.facebook.com/101440919065369/posts?access_token=EAAcBZAami7SkBALEEiq8kksXCZCOaDnDRg15d75XAmo2yKHfMgBojWDhaVatR6zAndCgveSvIAHZA6YTAO87vZCGOKTh2N8tWqc6oZBaT5r1Oes15P6I1UuAoCWSqDI5hi4RTKCoG3zzAIUIrlLdPIAjIbo4rsSHXJZBGhiQmYUBHoExMEgjdxYsepxWDDPMsZD");
 		JSONArray obj=(JSONArray)prova.get("data");
 		for(int i=0;i<obj.size();i++)
 		{
 		prova=(JSONObject) obj.get(i);
 		id=(String)prova.get("id");
-		this.getComments(id);
+			this.getComments(id);
 		}
 	return this.listaCommenti;
 	}

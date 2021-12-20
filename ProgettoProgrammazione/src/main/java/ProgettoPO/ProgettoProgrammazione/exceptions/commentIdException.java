@@ -1,10 +1,11 @@
 package ProgettoPO.ProgettoProgrammazione.exceptions;
 
-public class commentIdException extends Exception {
+public class commentIdException extends MotherEx {
+	String errore = "Id del commento non valido";
 	
 	public commentIdException () {
-		super();
-		System.out.println ("Id del commento non valido");
+		super("Id del commento non valido");
 	}
 
+	public String getErrore () {return errore;}
 }
