@@ -11,5 +11,5 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 
 .ProgettoProgrammazione/src/main/java/ProgettoPO/ProgettoProgrammazione/services/CommentServiceImpl.java
-
+.log
 ProgettoProgrammazione/src/main/java/ProgettoPO/ProgettoProgrammazione/services/CommentServiceImpl.java
