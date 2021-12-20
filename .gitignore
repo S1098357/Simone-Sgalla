@@ -16,3 +16,7 @@ ProgettoProgrammazione/src/main/java/ProgettoPO/ProgettoProgrammazione/services/
 */services/*
 */services/**
 / * / target / .metadata tar.gz .classpath .project * /. settings /
+.classpath
+.project
+.settings/
+target
