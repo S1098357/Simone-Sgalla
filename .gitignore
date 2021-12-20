@@ -10,7 +10,6 @@ buildNumber.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
 
-
+.ProgettoProgrammazione/src/main/java/ProgettoPO/ProgettoProgrammazione/services/CommentServiceImpl.java
 
 ProgettoProgrammazione/src/main/java/ProgettoPO/ProgettoProgrammazione/services/CommentServiceImpl.java
-CommentServiceImpl
