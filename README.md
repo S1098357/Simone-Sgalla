@@ -29,4 +29,7 @@ Questa rotta quando avviata scorre la lista di COMMENT fornita dalla rotta "/com
 Questa rotta contiene tutte le statistiche effettuate da questa applicazione sui commenti, queste si dividono in vari tipi:
 
 1)Frequenza commenti: questa statistica fornisce all'utente un elenco di date ed ore relativo alla creazione dei commenti generati dall'utente sulla pagina presa in esame. Nel caso in cui l'utente non abbia mai commentato o nel caso in cui i suoi dati non siano accessibili questa rotta restituisce la stringa relativa all'eccezione "invalidNameException" che verrà poi visualizzata dall'utente.
-2)
+
+2)Media oraria: questa statistica fornisce all'utente l'orario medio in cui vengono generati i commenti sulla pagina presa in esame, questo avviene utilizzando la lista che viene visualizzata dall'utente avviando la rotta "/comments".
+
+
