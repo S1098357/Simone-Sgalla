@@ -34,3 +34,6 @@ Questa rotta contiene tutte le statistiche effettuate da questa applicazione sui
 
 3)Orario max: questa statistica fornisce all'utente l'orario più tardivo in cui è stato generato un commento, questo avviene utilizzando la lista che viene visualizzata dall'utente avviando la rotta "/comments".
 
+4)Orario min: questa statistica fornisce all'utente l'orario minore in cui è stato generato un commento, questo avviene utilizzando la lista che viene visualizzata dall'utente avviando la rotta "/comments".
+
+5)Media commenti al giorno: questa statistica fornisce all'utente la media dei commenti creati giornalmente, questo avviene prendendo in esame la lista che viene visualizzata dall'utente avviando la rotta "/comments", i giorni presi in esame per calcolare la media vanno dal giorno in cui è stato generato il primo commento fino al giorno in cui è stato generato l'ultimo commento.
