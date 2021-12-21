@@ -38,8 +38,8 @@ Questa rotta contiene tutte le statistiche effettuate dall'applicazione sui comm
 
 5)Media commenti al giorno: questa statistica fornisce all'utente la media dei commenti creati giornalmente. Questo avviene prendendo in esame la lista che viene visualizzata dall'utente avviando la rotta "/comments": i giorni presi in esame per calcolare la media vanno dal giorno in cui è stato generato il primo commento fino al giorno in cui è stato generato l'ultimo commento.
 
-6)Media like per commento: questa statistica fornisce all'utente la media dei like sotto i singoli commenti, questo avviene prendendo in esame la lista che viene visualizzata dall'utente avviando la rotta "/comments".
+6)Media like per commento: questa statistica fornisce all'utente la media dei like sotto i singoli commenti. Questo avviene prendendo in esame la lista che viene visualizzata dall'utente avviando la rotta "/comments".
 
-7)Media commenti per commento: questa statistica fornisce all'utente la media dei commenti sotto i singoli commenti, questo avviene prendendo in esame la lista che viene visualizzata dall'utente avviando la rotta "/comments".
+7)Media commenti per commento: questa statistica fornisce all'utente la media dei commenti sotto i singoli commenti. Questo avviene prendendo in esame la lista che viene visualizzata dall'utente avviando la rotta "/comments".
 
-8)Numero commenti per utente: questa statistica fornisce all'utente il numero di commenti generati dal profilo facebook "name2", questo avviene prendendo in esame la lista che viene visualizzata dall'utente avviando la rotta "/comments". Nel caso in cui non vi sia alcun commento generato dal profilo "name2" l'utente visualizza la stringa relativa all'errore "invalidNameException" che spiega l'errore commesso.
+8)Numero commenti per utente: questa statistica fornisce all'utente il numero di commenti generati dal profilo facebook "name2". Questo avviene prendendo in esame la lista che viene visualizzata dall'utente avviando la rotta "/comments". Nel caso in cui non vi sia alcun commento generato dal profilo "name2", l'utente visualizza la stringa relativa all'errore "invalidNameException" che spiega l'errore commesso.
