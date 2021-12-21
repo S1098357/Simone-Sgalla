@@ -67,7 +67,7 @@ public class MyController {
 	}*/
 	
 	@GetMapping ("/stats/{name1}/{name2}")
-	public Vector<String> getStats (@PathVariable String name1, String name2)  {
+	public Vector<String> getStats (@PathVariable String name1, @PathVariable String name2)  {
 		//Vector<String> stats = new Vector <String>();
 		Vector <CommentMethods> lista = this.commentService.getAllComments();
 		Vector<String> stats = this.stats.frequenzaUtente(lista, name1);
@@ -92,7 +92,7 @@ public class MyController {
 	}*/
 	
 	@GetMapping("/filters/{date}/{hour}/{name}")
-	public Vector <Vector<CommentMethods>> getFilters (@PathVariable int date, int hour, String name) {
+	public Vector <Vector<CommentMethods>> getFilters (@PathVariable int date,@PathVariable int hour,@PathVariable String name) {
 		Vector <CommentMethods> lista = this.commentService.getAllComments();
 		Vector <Vector<CommentMethods>> filters = new Vector <Vector <CommentMethods>>(); 
 		filters.add(this.stats.filtroGiorni(lista, date));

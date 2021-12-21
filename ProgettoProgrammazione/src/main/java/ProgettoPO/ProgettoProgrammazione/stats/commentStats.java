@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Vector;
 
 public class commentStats {
-	//static int contatore = 0;
+	static int contatore = 0;
 	
 	public String mediaOrario (Vector <CommentMethods> commenti) {
 		int sommaOre=0, sommaMinuti = 0;
@@ -129,7 +129,7 @@ public class commentStats {
 			giorno=Integer.parseInt(appoggio);
 			if(giorno==giornoScelto)nuovaLista.add(listaCommenti.get(i));
 		}
-		if (nuovaLista.equals(null)) {
+		if (nuovaLista.size()==0) {
 			CommentError a = new CommentError();
 			a.setErrore(new invalidDate());
 			nuovaLista.add(a);
@@ -151,7 +151,7 @@ public class commentStats {
 			ora=Integer.parseInt(appoggio);
 			if(ora==oraScelta)nuovaLista.add(listaCommenti.get(i));
 		}
-		if (nuovaLista.equals(null)) {
+		if (nuovaLista.size()==0) {
 			CommentError a = new CommentError();
 			a.setErrore(new invalidHour());
 			nuovaLista.add(a);
@@ -170,7 +170,7 @@ public class commentStats {
 			utente=listaCommenti.get(i).retFrom();
 			if(utente.equals(utenteScelto))nuovaLista.add(listaCommenti.get(i));
 		}
-		if (nuovaLista.equals(null)) {
+		if (nuovaLista.size()==0) {
 			CommentError a = new CommentError();
 			a.setErrore(new invalidName());
 			nuovaLista.add(a);
@@ -185,7 +185,7 @@ public class commentStats {
 	
 		public String numCommentiUtente(List<CommentMethods> listaCommenti, String utenteScelto) {
 			String utente;
-			int contatore=0;
+			contatore=0;
 			for(int i=0; i<listaCommenti.size();i++)
 			{
 				utente=listaCommenti.get(i).retFrom();

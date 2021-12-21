@@ -56,7 +56,7 @@ public class CommentServiceImpl implements CommentService {
 	
 	@Override
 	public JSONObject getPosts() {
-		return this.downloadApi("https://graph.facebook.com/me?fields=posts&access_token=EAAcBZAami7SkBALEEiq8kksXCZCOaDnDRg15d75XAmo2yKHfMgBojWDhaVatR6zAndCgveSvIAHZA6YTAO87vZCGOKTh2N8tWqc6oZBaT5r1Oes15P6I1UuAoCWSqDI5hi4RTKCoG3zzAIUIrlLdPIAjIbo4rsSHXJZBGhiQmYUBHoExMEgjdxYsepxWDDPMsZD");
+		return this.downloadApi("https://graph.facebook.com/me?fields=posts&access_token=");
 		}
 	
 	
@@ -65,8 +65,8 @@ public class CommentServiceImpl implements CommentService {
 		JSONObject prova=null;
 		String preUrl="https://graph.facebook.com/";
 		String id;
-		String postUrl="?fields=parent,id,message,from,created_time,permalink_url,can_comment,can_like,user_likes,comment_count,like_count&access_token=EAAcBZAami7SkBALEEiq8kksXCZCOaDnDRg15d75XAmo2yKHfMgBojWDhaVatR6zAndCgveSvIAHZA6YTAO87vZCGOKTh2N8tWqc6oZBaT5r1Oes15P6I1UuAoCWSqDI5hi4RTKCoG3zzAIUIrlLdPIAjIbo4rsSHXJZBGhiQmYUBHoExMEgjdxYsepxWDDPMsZD";
-		String postPostUrl="/comments?access_token=EAAcBZAami7SkBALEEiq8kksXCZCOaDnDRg15d75XAmo2yKHfMgBojWDhaVatR6zAndCgveSvIAHZA6YTAO87vZCGOKTh2N8tWqc6oZBaT5r1Oes15P6I1UuAoCWSqDI5hi4RTKCoG3zzAIUIrlLdPIAjIbo4rsSHXJZBGhiQmYUBHoExMEgjdxYsepxWDDPMsZD";
+		String postUrl="?fields=parent,id,message,from,created_time,permalink_url,can_comment,can_like,user_likes,comment_count,like_count&access_token=";
+		String postPostUrl="/comments?access_token=";
 		try {
 		prova=this.downloadApi(preUrl+postId+postPostUrl);
 		if (prova==null) throw new postIdException();
@@ -120,7 +120,7 @@ public class CommentServiceImpl implements CommentService {
 	public Vector<CommentMethods> getAllComments () {
 		this.listaCommenti.clear();
 		String id;
-		JSONObject prova=this.downloadApi("https://graph.facebook.com/101440919065369/posts?access_token=EAAcBZAami7SkBALEEiq8kksXCZCOaDnDRg15d75XAmo2yKHfMgBojWDhaVatR6zAndCgveSvIAHZA6YTAO87vZCGOKTh2N8tWqc6oZBaT5r1Oes15P6I1UuAoCWSqDI5hi4RTKCoG3zzAIUIrlLdPIAjIbo4rsSHXJZBGhiQmYUBHoExMEgjdxYsepxWDDPMsZD");
+		JSONObject prova=this.downloadApi("https://graph.facebook.com/101440919065369/posts?access_token=");
 		JSONArray obj=(JSONArray)prova.get("data");
 		for(int i=0;i<obj.size();i++)
 		{
