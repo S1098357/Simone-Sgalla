@@ -4,7 +4,7 @@ Lo scopo del nostro progetto è offrire all'utente una gestione dei commenti rel
 
 # Applicazione
 
-Tramite l'API di facebook for developers il programma riceve in input i dati relativi a tutti i commenti salvandone poi i campi su una lista che verrà poi visualizzata dall'utente in formato JSON. Se durante un qualsiasi processo occorre un'eccezione dall'utente verrà visualizzata una stringa relativa all'eccezione stessa che spieghi all'utente l'errore che ha commesso.
+Tramite l'API di facebook for developers il programma riceve in input i dati relativi a tutti i commenti salvandone poi i campi su una lista che verrà poi visualizzata dall'utente in formato JSON. Se durante un qualsiasi processo occorre un'eccezione, dall'utente verrà visualizzata una stringa relativa all'eccezione stessa che spieghi all'utente l'errore che ha commesso.
 
 # Rotte disponibili
 
