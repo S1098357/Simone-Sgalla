@@ -1,12 +1,13 @@
 package ProgettoPO.ProgettoProgrammazione.entities;
 
 import org.json.simple.JSONObject;
+/**
+ * Classe figlia di CommentMethods. Contiene tutti gli attributi di un commento
+ */
 
 public class Comment extends CommentMethods {
-	
-	
-	static boolean Parent = false;
-	//contiene tutti i parametri singoli corrispondenti alle chiamate
+		
+		//Attributi di un commento
 	        String id;
 	        String message;
 			String createdTime;
@@ -19,7 +20,16 @@ public class Comment extends CommentMethods {
 			CommentParents parent;
 			String from;
 		
+		//Costruttore vuoto che verrà utilizzato in seguito
 		public Comment () {};
+		
+		/**
+		 * Costruttore che prende come argomento un JSONObject. Questo ci servirà per prendere i dati direttamente dall'Api
+		 * e manipolarli. All'interno del costruttore sono definiti altri due JSONObject (all'interno dell'if) che serviranno 
+		 * uno per considerare anche le risposte ai commenti (come dei sottocommenti) e l'altro tutti i dati relativi al sottocommento.
+		 * 
+		 * @param commento JSONObject commento, oggetto da cui vengo prese le informazioni in Json
+		 */
 		
 		public Comment (JSONObject commento) {
 			super();
@@ -27,7 +37,6 @@ public class Comment extends CommentMethods {
 				JSONObject parent = (JSONObject) commento.get("parent");
 				JSONObject parentFrom = (JSONObject) parent.get("from");
 				this.parent=new CommentParents((String)parent.get("created_time"),(String) parentFrom.get("name"),(String)parentFrom.get("id"),(String) parent.get("message"),(String) parent.get("id"));
-				Parent=true;
 			}
 			this.id = (String) commento.get("id");
 			this.message = (String) commento.get("message");
@@ -48,7 +57,7 @@ public class Comment extends CommentMethods {
 		};
 		
 		
-		//contiene tutti i return delle chiamate singole
+		//Metodi get di un commento (necessari per visualizzare a schermo le informazioni relative ad un commento)
 		public String getMessage(){return message;}
 		public String getCreatedTime(){return createdTime;}
 		public String getId () {return id;}
@@ -61,7 +70,8 @@ public class Comment extends CommentMethods {
 		public CommentParents getParent() {return parent;}
 		public String getFrom() {return from;}
 		
-
+		//Sono come i metodi get ma necessari per il funzionamento del programma
+		//Override dei ret della classe madre
 		public String retId() {return id;}
 		public String retCreatedTime() {return createdTime;}
 		public String retFrom() {return from;}

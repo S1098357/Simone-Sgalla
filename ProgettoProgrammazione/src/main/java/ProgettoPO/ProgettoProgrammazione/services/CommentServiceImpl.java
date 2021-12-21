@@ -69,10 +69,10 @@ public class CommentServiceImpl implements CommentService {
 		String postPostUrl="/comments?access_token=";
 		try {
 		prova=this.downloadApi(preUrl+postId+postPostUrl);
-		if (prova==null) throw new postIdException();
+		if (prova==null) throw new PostIdException();
 		} catch (Exception e) {
 			CommentError a = new CommentError();
-			a.setErrore(new postIdException());
+			a.setErrore(new PostIdException());
 			listaCommenti.add(a);
 		  return listaCommenti;
 		}
@@ -111,7 +111,7 @@ public class CommentServiceImpl implements CommentService {
 			}
 		}
 		CommentError a = new CommentError();
-		a.setErrore(new commentIdException());
+		a.setErrore(new CommentIdException());
 		return a;
 		
 	}

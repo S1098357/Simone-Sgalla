@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import ProgettoPO.ProgettoProgrammazione.entities.CommentMethods;
-import ProgettoPO.ProgettoProgrammazione.exceptions.postIdException;
+import ProgettoPO.ProgettoProgrammazione.exceptions.PostIdException;
 import ProgettoPO.ProgettoProgrammazione.services.CommentServiceImpl;
 
 class exceptionsTests {
@@ -24,7 +24,7 @@ class exceptionsTests {
 
 	@Test
 	void test() {
-		assertThrows (postIdException.class, ()-> commentService.getComments("2372"));
+		assertThrows (PostIdException.class, ()-> commentService.getComments("2372"));
 		}
 	
 	

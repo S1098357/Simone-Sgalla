@@ -8,16 +8,16 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ProgettoPO.ProgettoProgrammazione.StatsFilters.CommentStats;
 import ProgettoPO.ProgettoProgrammazione.entities.Comment;
 import ProgettoPO.ProgettoProgrammazione.entities.CommentMethods;
-import ProgettoPO.ProgettoProgrammazione.exceptions.invalidName;
-import ProgettoPO.ProgettoProgrammazione.stats.commentStats;
+import ProgettoPO.ProgettoProgrammazione.exceptions.InvalidName;
 import ProgettoPO.ProgettoProgrammazione.services.*;
 
 
 class statsTests {
 	
-	private commentStats stats = new commentStats();
+	private CommentStats stats = new CommentStats();
 	CommentServiceImpl commentService = new CommentServiceImpl();
 	Vector <CommentMethods> lista = this.commentService.getAllComments();
 	

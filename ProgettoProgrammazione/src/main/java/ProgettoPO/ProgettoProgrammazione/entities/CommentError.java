@@ -4,10 +4,14 @@ import org.json.simple.JSONObject;
 
 import ProgettoPO.ProgettoProgrammazione.exceptions.MotherEx;
 
+/**
+ * Altra classe figlia di CommentMethods. Serve per realizzare il commento con messaggio di errore nel caso di eccezioni
+ */
+
 public class CommentError extends CommentMethods {
 	
-	
-	String errore;
+	//Unico Attributo della classe
+	public String errore;
 	
 	String id;
     String message;
