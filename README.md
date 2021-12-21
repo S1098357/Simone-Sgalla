@@ -41,3 +41,5 @@ Questa rotta contiene tutte le statistiche effettuate da questa applicazione sui
 6)Media like per commento: questa statistica fornisce all'utente la media dei like sotto i singoli commenti, questo avviene prendendo in esame la lista che viene visualizzata dall'utente avviando la rotta "/comments".
 
 7)Media commenti per commento: questa statistica fornisce all'utente la media dei commenti sotto i singoli commenti, questo avviene prendendo in esame la lista che viene visualizzata dall'utente avviando la rotta "/comments".
+
+8)Numero commenti per utente: questa statistica fornisce all'utente il numero di commenti generati dal profilo facebook "name2", questo avviene prendendo in esame la lista che viene visualizzata dall'utente avviando la rotta "/comments". Nel caso in cui non vi sia alcun commento generato dal profilo "name2" l'utente visualizza la stringa relativa all'errore "invalidNameException" che spiega l'errore commesso.
