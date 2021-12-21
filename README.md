@@ -38,5 +38,6 @@ Questa rotta contiene tutte le statistiche effettuate da questa applicazione sui
 
 5)Media commenti al giorno: questa statistica fornisce all'utente la media dei commenti creati giornalmente, questo avviene prendendo in esame la lista che viene visualizzata dall'utente avviando la rotta "/comments", i giorni presi in esame per calcolare la media vanno dal giorno in cui è stato generato il primo commento fino al giorno in cui è stato generato l'ultimo commento.
 
-6)Media like per commento: questa statistica fornisce all'utente la media dei like sotto il singolo commento, questo avviene prendendo in esame la lista che viene visualizzata dall'utente avviando la rotta "/comments".
+6)Media like per commento: questa statistica fornisce all'utente la media dei like sotto i singoli commenti, questo avviene prendendo in esame la lista che viene visualizzata dall'utente avviando la rotta "/comments".
 
+7)Media commenti per commento: questa statistica fornisce all'utente la media dei commenti sotto i singoli commenti, questo avviene prendendo in esame la lista che viene visualizzata dall'utente avviando la rotta "/comments".
