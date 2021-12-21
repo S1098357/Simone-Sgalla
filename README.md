@@ -15,3 +15,7 @@ Quando viene avviata questa rotta il programma tramite l'API di facebook for dev
 # /posts
 
 Quando viene avviata questa rotta il programma riceve in input il file JSON fornito dall'API di facebook for developers che verrà visualizzato dall'utente senza che il programma lo modifichi in alcun modo, questo fa si che l'utente possa accedere ai dati richiesti per avviare le rotte più specifiche. I campi forniti dall'API sono: il messaggi contenuti nei post, l'id dei post visualizzati, il momento della creazione dei post viualizzati.
+
+# /posts/{postId}/comments
+
+La rotta sopracitata quando avviata prende in input tutti i commenti relativi al post di cui si è fornito l'id durante la chiamata e li salva all'interno di una lista di COMMENT che verrà poi visualizzata dall'utente (vengono salvati anche i commenti che rispondono ad altri commenti presenti sotto il post di cui si è fornito l'id in input) .
