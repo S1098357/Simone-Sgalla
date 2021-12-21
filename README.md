@@ -23,3 +23,10 @@ La rotta sopracitata quando avviata prende in input tutti i commenti relativi al
 # /posts/{postId}/comments/{id}
 
 Questa rotta quando avviata scorre la lista di COMMENT fornita dalla rotta "/comments" e cerca il commento con un id corrispondente a quello fornito. Se lo trova l'utente visualizza poi il commento in formato JSON, mentre se non ci sono id corrspondenti a quello fornito dall'utente viene visualizzata la stringa relativa all'eccezione CommentIdException che spiega all'utente l'errore che ha commesso.
+
+# /stats/{name1}/{name2}
+
+Questa rotta contiene tutte le statistiche effettuate da questa applicazione sui commenti, queste si dividono in vari tipi:
+
+1)Frequenza commenti: questa statistica fornisce all'utente un elenco di date ed ore relativo alla creazione dei commenti generati dall'utente sulla pagina presa in esame. Nel caso in cui l'utente non abbia mai commentato o nel caso in cui i suoi dati non siano accessibili questa rotta restituisce la stringa relativa all'eccezione "invalidNameException" che verrà poi visualizzata dall'utente.
+2)
