@@ -10,5 +10,8 @@ Tramite l'API di facebook for developers il programma riceve in input i dati rel
 
 # /comments
 
-Quando viene avviata questa rotta il programma tramite l'API di facebook for developers accede ai dati relativi alla pagina facebook presa in esame, il programma procede poi a salvare tutti i commenti con i relativi campi all'interno di una lista che viene poi visualizzata dall'utente. La lista fornita da questa funzione verrà poi utilizzata anche da altre classi, per esempio è la lista utilizzata dai metodi relativi che forniscono le statistiche.
+Quando viene avviata questa rotta il programma tramite l'API di facebook for developers accede ai dati relativi alla pagina facebook presa in esame, il programma procede poi a salvare tutti i commenti con i relativi campi all'interno di una lista di COMMENT che viene poi visualizzata dall'utente. La lista fornita da questa rotta verrà poi utilizzata anche da altre classi, per esempio è la lista utilizzata dai metodi relativi che forniscono le statistiche.
 
+# /posts
+
+Quando viene avviata questa rotta il programma riceve in input il file JSON fornito dall'API di facebook for developers che verrà visualizzato dall'utente senza che il programma lo modifichi in alcun modo, questo fa si che l'utente possa accedere ai dati richiesti per avviare le rotte più specifiche. I campi forniti dall'API sono: il messaggi contenuti nei post, l'id dei post visualizzati, il momento della creazione dei post viualizzati.
