@@ -32,4 +32,5 @@ Questa rotta contiene tutte le statistiche effettuate da questa applicazione sui
 
 2)Media oraria: questa statistica fornisce all'utente l'orario medio in cui vengono generati i commenti sulla pagina presa in esame, questo avviene utilizzando la lista che viene visualizzata dall'utente avviando la rotta "/comments".
 
+3)Orario max: questa statistica fornisce all'utente l'orario più tardivo in cui è stato generato un commento, questo avviene utilizzando la lista che viene visualizzata dall'utente avviando la rotta "/comments".
 
