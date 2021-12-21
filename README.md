@@ -18,25 +18,25 @@ Quando viene avviata questa rotta il programma riceve in input il file JSON forn
 
 # /posts/{postId}/comments
 
-La rotta sopracitata quando avviata prende in input tutti i commenti relativi al post di cui si è fornito l'id durante la chiamata e li salva all'interno di una lista di COMMENT che verrà poi visualizzata dall'utente (vengono salvati anche i commenti che rispondono ad altri commenti presenti sotto il post di cui si è fornito l'id in input) .
+La rotta sopracitata, quando avviata, prende in input tutti i commenti relativi al post di cui si è fornito l'id durante la chiamata e li salva all'interno di una lista di COMMENT che verrà poi visualizzata dall'utente (vengono salvati anche i commenti che rispondono ad altri commenti presenti sotto il post di cui si è fornito l'id in input).
 
 # /posts/{postId}/comments/{id}
 
-Questa rotta quando avviata scorre la lista di COMMENT fornita dalla rotta "/comments" e cerca il commento con un id corrispondente a quello fornito. Se lo trova l'utente visualizza poi il commento in formato JSON, mentre se non ci sono id corrspondenti a quello fornito dall'utente viene visualizzata la stringa relativa all'eccezione CommentIdException che spiega all'utente l'errore che ha commesso.
+Questa rotta quando avviata scorre la lista di COMMENT fornita dalla rotta "/comments" e cerca il commento con un id corrispondente a quello fornito. Se lo trova l'utente visualizza poi il commento in formato JSON, mentre se non ci sono id corrspondenti a quello fornito dall'utente viene visualizzata la stringa relativa all'eccezione "CommentIdException" che spiega all'utente l'errore commesso.
 
 # /stats/{name1}/{name2}
 
-Questa rotta contiene tutte le statistiche effettuate da questa applicazione sui commenti, queste si dividono in vari tipi:
+Questa rotta contiene tutte le statistiche effettuate dall'applicazione sui commenti. Queste si dividono in vari tipi:
 
-1)Frequenza commenti: questa statistica fornisce all'utente un elenco di date ed ore relativo alla creazione dei commenti generati dall'utente sulla pagina presa in esame. Nel caso in cui l'utente non abbia mai commentato o nel caso in cui i suoi dati non siano accessibili questa rotta restituisce la stringa relativa all'eccezione "invalidNameException" che verrà poi visualizzata dall'utente.
+1)Frequenza commenti: questa statistica fornisce all'utente un elenco di date ed ore relativo alla creazione dei commenti generati dall'utente sulla pagina presa in esame. Nel caso in cui l'utente non abbia mai commentato o nel caso in cui i suoi dati non siano accessibili, questa rotta restituisce la stringa relativa all'eccezione "invalidNameException" che verrà poi visualizzata dall'utente.
 
-2)Media oraria: questa statistica fornisce all'utente l'orario medio in cui vengono generati i commenti sulla pagina presa in esame, questo avviene utilizzando la lista che viene visualizzata dall'utente avviando la rotta "/comments".
+2)Media oraria: questa statistica fornisce all'utente l'orario medio in cui vengono generati i commenti sulla pagina presa in esame. Questo avviene utilizzando la lista che viene visualizzata dall'utente avviando la rotta "/comments".
 
-3)Orario max: questa statistica fornisce all'utente l'orario più tardivo in cui è stato generato un commento, questo avviene utilizzando la lista che viene visualizzata dall'utente avviando la rotta "/comments".
+3)Orario max: questa statistica fornisce all'utente l'ultimo orario della giornata in cui è stato generato un commento. Questo avviene utilizzando la lista che viene visualizzata dall'utente avviando la rotta "/comments".
 
-4)Orario min: questa statistica fornisce all'utente l'orario minore in cui è stato generato un commento, questo avviene utilizzando la lista che viene visualizzata dall'utente avviando la rotta "/comments".
+4)Orario min: questa statistica fornisce all'utente il primo orario della giornata in cui è stato generato un commento. Questo avviene utilizzando la lista che viene visualizzata dall'utente avviando la rotta "/comments".
 
-5)Media commenti al giorno: questa statistica fornisce all'utente la media dei commenti creati giornalmente, questo avviene prendendo in esame la lista che viene visualizzata dall'utente avviando la rotta "/comments", i giorni presi in esame per calcolare la media vanno dal giorno in cui è stato generato il primo commento fino al giorno in cui è stato generato l'ultimo commento.
+5)Media commenti al giorno: questa statistica fornisce all'utente la media dei commenti creati giornalmente. Questo avviene prendendo in esame la lista che viene visualizzata dall'utente avviando la rotta "/comments": i giorni presi in esame per calcolare la media vanno dal giorno in cui è stato generato il primo commento fino al giorno in cui è stato generato l'ultimo commento.
 
 6)Media like per commento: questa statistica fornisce all'utente la media dei like sotto i singoli commenti, questo avviene prendendo in esame la lista che viene visualizzata dall'utente avviando la rotta "/comments".
 
