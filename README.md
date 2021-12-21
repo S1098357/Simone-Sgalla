@@ -19,3 +19,7 @@ Quando viene avviata questa rotta il programma riceve in input il file JSON forn
 # /posts/{postId}/comments
 
 La rotta sopracitata quando avviata prende in input tutti i commenti relativi al post di cui si è fornito l'id durante la chiamata e li salva all'interno di una lista di COMMENT che verrà poi visualizzata dall'utente (vengono salvati anche i commenti che rispondono ad altri commenti presenti sotto il post di cui si è fornito l'id in input) .
+
+# /posts/{postId}/comments/{id}
+
+Questa rotta quando avviata scorre la lista di COMMENT fornita dalla rotta "/comments" e cerca il commento con un id corrispondente a quello fornito. Se lo trova l'utente visualizza poi il commento in formato JSON, mentre se non ci sono id corrspondenti a quello fornito dall'utente viene visualizzata la stringa relativa all'eccezione CommentIdException che spiega all'utente l'errore che ha commesso.
