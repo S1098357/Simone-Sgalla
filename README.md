@@ -6,6 +6,39 @@ Lo scopo del nostro progetto è offrire all'utente una gestione dei commenti rel
 
 Tramite l'API di facebook for developers il programma riceve in input i dati relativi a tutti i commenti salvandone poi i campi su una lista che verrà poi visualizzata dall'utente in formato JSON. Se durante un qualsiasi processo occorre un'eccezione, dall'utente verrà visualizzata una stringa relativa all'eccezione stessa che spieghi l'errore commesso.
 
+# Comment
+
+COMMENT è la classe fondante della nostra applicazione, essa è infatti la classe che ci permette di immagazzinare i commenti con i relativi parametri, di svolgervi delle operazioni e di stamparli. La classe COMMENT contiene diversi campi:
+
+1)id: questo campo è di tipo "String" ed in esso viene salvato l'id del commento, che possiamo poi utilizzare nella rotta /posts/{postId}/comments/{id} per visualizzare uno specifico commento.
+
+2)message: questo campo è di tipo "String" ed in esso è contenuto il testo del commento.
+
+3)createdTime:  questo campo è di tipo "String"ed in esso è contenuta la data di creazione del commento. Questa comprende giorno, mese, anno, ora, minuto e secondo esatto nel quale viene generato il commento.
+
+4)permaLinkUrl: in questo campo è contenuto il link per accedere al commento: dal link si risale al commento e lo si visualizza in facebook.
+
+5)canComment: questo campo è di tipo "boolean" e risulta "true" se è possibile rispondere al commento a cui questo campo appartiene e "false" in caso contrario.
+
+6)canLike: questo campo è di tipo "boolean" e risulta "true" se l'utente può mettere mi piace al commento a cui questo campo appartiene e "false" in caso contrario.
+
+7)userLikes: questo campo è di tipo "boolean" e risulta "true" se l'utente ha messo mi piace al commento a cui questo campo appartiene e "false" in caso contrario.
+
+8)commentCount: questo campo è di tipo "long" e contiene il numero di risposte al commento a cui questo campo appartiene.
+
+9)likeCount: questo campo è di tipo "long" e contiene il numero di "like" al commento a cui questo campo appartiene.
+
+10)from: questo campo è di tipo "String" e contiene il nome dell'utente che ha creato il commento a cui questo campo appartiene (risulta non accessibile se non si può accedere al nome dell'utente per problemi di prvacy).
+
+11)Parent: questo campo è una classe separata da COMMENT e risulta null se il commento preso in esame non è un commento di risposta ad un altro commento. In caso contrario questo ccampo contiene a sua volta 4 campi:
+  11-1)parentCreatedTime: questo campo è il corrispettivo di "createdTime" ma si riferisce al campo del commento a cui questo commento risponde.
+  
+  11-2)parentName: questo campo è il corrispettivo di "name" ma si riferisce al campo del commento a cui questo commento risponde.
+
+  11-3)parentFrom: questo campo è il corrispettivo di "from" ma si riferisce al campo del commento a cui questo commento risponde.
+
+  11-4)parentId: questo campo è il corrispettivo di "id" ma si riferisce al campo del commento a cui questo commento risponde.
+
 # Rotte disponibili
 
 # /comments
