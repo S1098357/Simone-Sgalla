@@ -43,3 +43,13 @@ Questa rotta contiene tutte le statistiche effettuate dall'applicazione sui comm
 7)Media commenti per commento: questa statistica fornisce all'utente la media dei commenti sotto i singoli commenti. Questo avviene prendendo in esame la lista che viene visualizzata dall'utente avviando la rotta "/comments".
 
 8)Numero commenti per utente: questa statistica fornisce all'utente il numero di commenti generati dal profilo facebook "name2". Questo avviene prendendo in esame la lista che viene visualizzata dall'utente avviando la rotta "/comments". Nel caso in cui non vi sia alcun commento generato dal profilo "name2", l'utente visualizza la stringa relativa all'errore "invalidNameException" che spiega l'errore commesso.
+
+# /filters/{date}/{hour}/{name}
+
+Questa rotta contiene tutti i filtri effettuati dall'applicazione sui commenti. Questi si suddividono in:
+
+1)Filtro giorni: questo metodo utilizza l'input fornito dall'utente "date" e crea una lista che contiene tutti i commenti creati nella data scelta. Questo avviene utilizzando la lista che viene visualizzata dall'utente avviando la rotta "/comments". Nel caso in cui durante questo processo occorrano delle eccezioni l'utente visualizzerà la stringa relativa all'eccezione "InvalidDateException" che gli permetterà di capire l'errore commesso. Se l'utente dovesse inserire una stringa al posto di un numero su date verrà visualizzato l'errore "invalidPath".
+
+2)Filtro ore: questo metodo utilizza l'input fornito dall'utente "hour" e crea una lista che contiene tutti i commenti creati all'ora scelta. Questo avviene utilizzando la lista che viene visualizzata dall'utente avviando la rotta "/comments". Nel caso in cui durante questo processo occorrano delle eccezioni l'utente visualizzerà la stringa relativa all'eccezione "InvalidHourException" che gli permetterà di capire l'errore commesso. Se l'utente dovesse inserire una stringa al posto di un numero su date verrà visualizzato l'errore "invalidPath".
+
+2)Filtro ore: questo metodo utilizza l'input fornito dall'utente "name" e crea una lista che contiene tutti i commenti creati dall'utente scelto. Questo avviene utilizzando la lista che viene visualizzata dall'utente avviando la rotta "/comments". Nel caso in cui durante questo processo occorrano delle eccezioni l'utente visualizzerà la stringa relativa all'eccezione "InvalidNameException" che gli permetterà di capire l'errore commesso. 
