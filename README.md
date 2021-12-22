@@ -33,7 +33,7 @@ COMMENT è la classe fondante della nostra applicazione, essa è infatti la clas
 11)Parent: questo campo è una classe separata da COMMENT e risulta null se il commento preso in esame non è un commento di risposta ad un altro commento. In caso contrario questo ccampo contiene a sua volta 4 campi:
   11-1)parentCreatedTime: questo campo è il corrispettivo di "createdTime" ma si riferisce al campo del commento a cui questo commento risponde.
   
-  11-2)parentName: questo campo è il corrispettivo di "name" ma si riferisce al campo del commento a cui questo commento risponde.
+  11-2)parentMessage: questo campo è il corrispettivo di "message" ma si riferisce al campo del commento a cui questo commento risponde.
 
   11-3)parentFrom: questo campo è il corrispettivo di "from" ma si riferisce al campo del commento a cui questo commento risponde.
 
