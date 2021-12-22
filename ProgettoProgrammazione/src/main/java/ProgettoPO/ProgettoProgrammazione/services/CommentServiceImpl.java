@@ -20,10 +20,20 @@ import ProgettoPO.ProgettoProgrammazione.entities.CommentError;
 import ProgettoPO.ProgettoProgrammazione.entities.CommentMethods;
 import ProgettoPO.ProgettoProgrammazione.exceptions.*;
 
+/**
+ * Classe di gestione dei servizi. In questa sono esplicitati tutti i metodi elencati nell'interfaccia madre.
+ */
+
 @Service
 public class CommentServiceImpl implements CommentService {
 	public Vector <CommentMethods> listaCommenti=new Vector<CommentMethods>(); 
 	
+	/**
+	 * Metodo che permette di scaricare tutti i dati dell'Api sotto forma di JSONObject. Accetta come argomento un url di 
+	 * riferimento, dove sono contenute le informazioni.
+	 * @param url Url di riferimento, dove sono contenute le informazioni
+	 * @return Restituisce un oggetto (JSONObject) contenente tutti i dati dell'Api
+	 */
 	
 	public JSONObject downloadApi(String url) {
 		try {
@@ -44,22 +54,28 @@ public class CommentServiceImpl implements CommentService {
 			 }
 			JSONObject obj = (JSONObject) JSONValue.parseWithException(data);	
 			return obj;
-		} catch (IOException | ParseException e) {
-			//e.printStackTrace();
-		} catch (Exception e) {
-			//e.printStackTrace();
-		}
+		} catch (IOException | ParseException e) {}
+		catch (Exception e) {}
 		return null;
 	}
 	
 	
-	
+	/**
+	 * Metodo che restituisce sotto forma di JSONObject tutti i post di una pagina Facebook
+	 * @return Restituisce un oggetto (JSONObject) contenente tutti i post della pagina di cui si inserisce l'AccessToken
+	 */
 	@Override
 	public JSONObject getPosts() {
 		return this.downloadApi("https://graph.facebook.com/me?fields=posts&access_token=");
 		}
-	
-	
+
+	/**
+	 * Metodo che restituisce tutti i commenti, e le relative informazioni, sotto ad un determinato post
+	 * @see CommentMethods
+	 * @param postId Id del post di cui si vuole avere i commenti
+	 * @return Una lista di Comment (commenti) sotto ad un determinato post nel caso in cui l'id inserito sia valido
+	 * @return Una lista di CommentError con un solo elemento (messaggio di errore) nel caso in cui l'id inserito non sia valido
+	 */
 	@Override
 	public  Vector <CommentMethods> getComments(String postId) {
 		JSONObject prova=null;
@@ -67,13 +83,15 @@ public class CommentServiceImpl implements CommentService {
 		String id;
 		String postUrl="?fields=parent,id,message,from,created_time,permalink_url,can_comment,can_like,user_likes,comment_count,like_count&access_token=";
 		String postPostUrl="/comments?access_token=";
-		try {
+		//try {
 		prova=this.downloadApi(preUrl+postId+postPostUrl);
-		if (prova==null) throw new PostIdException();
-		} catch (Exception e) {
+		if (prova==null) {
+			//throw new PostIdException();
+		//} catch (Exception e) {
 			CommentError a = new CommentError();
 			a.setErrore(new PostIdException());
 			listaCommenti.add(a);
+		//}
 		  return listaCommenti;
 		}
 		JSONArray obj=(JSONArray)prova.get("data");
@@ -100,7 +118,14 @@ public class CommentServiceImpl implements CommentService {
 		return listaCommenti;
 	}
 	
-	
+	/**
+	 * Metodo che restituisce un singolo commento, ricercato tramite id, e tutte le sue informazioni
+	 * @see CommentMethod
+	 * @param id Id del commento di cui si vogliono le informazioni
+	 * @return il commento (Comment) singolo con quel determinato id, e le relative informazioni, 
+	 * preso dalla lista di commenti, nel caso in cui l'id sia valido
+	 * @return il commento (CommentError) con il messaggio di errore personalizzato nel caso in cui l'id non sia valido
+	 */
 	@Override
 	public CommentMethods getComment(String id)  {
 		for (int i=0;i<listaCommenti.size();i++)
@@ -116,7 +141,11 @@ public class CommentServiceImpl implements CommentService {
 		
 	}
 
-	
+	/**
+	 * Metodo che restituisce tutti i commenti della pagina
+	 * @see CommentMethods
+	 * @return una lista di tutti i commenti (Comment) della pagina e le relative informazioni
+	 */
 	public Vector<CommentMethods> getAllComments () {
 		this.listaCommenti.clear();
 		String id;

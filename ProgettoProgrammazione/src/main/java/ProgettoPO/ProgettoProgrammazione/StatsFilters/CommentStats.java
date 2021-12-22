@@ -1,11 +1,20 @@
 package ProgettoPO.ProgettoProgrammazione.StatsFilters;
-
 import ProgettoPO.ProgettoProgrammazione.entities.*;
 import ProgettoPO.ProgettoProgrammazione.exceptions.*;
 import java.util.List;
 import java.util.Vector;
 
+/**
+ * Classe in cui sono esplicitati i metodi relativi alle  statistiche realizzate sui commenti
+ */
+
 public class CommentStats {
+	
+	/**
+	 * Metodo che calcola la media dell'orario in cui vengono fatti i commenti
+	 * @param commenti lista di commenti popolata mediante la funzione getAllComments
+	 * @return una stringa in cui è indicato l'orario medio
+	 */
 	
 	public String mediaOrario (Vector <CommentMethods> commenti) {
 		int sommaOre=0, sommaMinuti = 0;
@@ -29,6 +38,12 @@ public class CommentStats {
 		return ore+":"+minuti;
 		}
 	
+	/**
+	 * Metodo che restituisce l'orario più tardivo in cui è stato fatto un commento
+	 * @param commenti lista di commenti popolata mediante la funzione getAllComments
+	 * @return una stringa in cui è indicato l'orario più tardivo
+	 */
+	
 	public String orarioMax (Vector <CommentMethods> commenti) {
 		int[] ore = new int[commenti.size()];
 		int[] minuti = new int[commenti.size()];
@@ -48,6 +63,12 @@ public class CommentStats {
 		String minutaggio = Integer.toString(minutiMax);
 		return orario+":"+minutaggio;
 		}
+	
+	/**
+	 * Metodo che restituisce l'orario minore in cui è stato fatto un commento
+	 * @param commenti lista di commenti popolata mediante la funzione getAllComments
+	 * @return una stringa in cui è indicato l'orario minore
+	 */
 	
 	public String orarioMin (Vector <CommentMethods> commenti) {
 		int[] ore = new int[commenti.size()];
@@ -69,6 +90,11 @@ public class CommentStats {
 		return orario+":"+minutaggio;
 		}
 	
+	/**
+	 * Metodo che restituisce la media di like per commento
+	 * @param listaCommenti lista di commenti popolata mediante la funzione getAllComments
+	 * @return una stringa in cui è indicata la media di like
+	 */
 	
 	public String mediaLike(List<CommentMethods> listaCommenti)
 	{
@@ -81,7 +107,13 @@ public class CommentStats {
 		resto=Integer.toString(media%listaCommenti.size());
 		return Media+"."+resto;
 	}
-
+	
+	/**
+	 * Metodo che restituisce la media di risposte per commento
+	 * @param listaCommenti lista di commenti popolata mediante la funzione getAllComments
+	 * @return una stringa in cui è indicata la media di risposte
+	 */
+	
 	public String mediaRisposte(List<CommentMethods> listaCommenti)
 	{
 		int media=0;
@@ -92,6 +124,12 @@ public class CommentStats {
 		resto=Integer.toString(media%listaCommenti.size());
 		return Media+"."+resto;
 	}
+	
+	/**
+	 * Metodo che restituisce la media di commenti al giorno
+	 * @param listaCommenti lista di commenti popolata mediante la funzione getAllComments
+	 * @return una stringa in cui è indicata la media di commenti al giorno
+	 */
 	
 	public String mediaCommentiAlGiorno(List<CommentMethods> listaCommenti)
 	{
@@ -115,6 +153,14 @@ public class CommentStats {
 		return media+"."+resto;
 	}
 	
+	 /**
+	  * Metodo che calcola il numero di commenti per Utente
+	  * @param listaCommenti lista di commenti popolata mediante la funzione getAllComments
+	  * @param utenteScelto Nome dell'utente, inserito dall'utente, di cui si uole sapere il numero totale di commenti
+	  * @return una stringa contentente il numero di commenti se l'utente inserito ha commentato
+	  * @return il messaggio di errore personalizzato nel caso in cui l'utente inserito non ha commentato
+	  */
+	
 	public String numCommentiUtente(List<CommentMethods> listaCommenti, String utenteScelto) {
 		String utente;
 		int contatore=0;
@@ -131,6 +177,15 @@ public class CommentStats {
 		}
 		return utente;
 }
+	
+	/**
+	 * Metodo che indica gli orario in cui sono stati fatti i commenti di un determinato utente
+	 * @param listaCommenti lista di commenti popolata mediante la funzione getAllComments
+	 * @param utenteScelto Nome dell'utente, inserito dall'utente, di cui si vogliono sapere gli orari dei commenti
+	 * @return una lista di stringa in cui sono indicati gli orari dei commenti dell'utente inserito nel caso in cui l'utente 
+	 * inserito abbia commentato
+	 * @return una lista contenente un singolo messaggio di errore nel caso in cui l'utente inserito non abbia commentato
+	 */
 	
 	public Vector<String> frequenzaUtente (List<CommentMethods> listaCommenti, String utenteScelto) 
 	{
