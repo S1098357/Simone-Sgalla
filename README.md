@@ -40,6 +40,8 @@ COMMENT è la classe fondante della nostra applicazione, essa è infatti la clas
 
   11-4)parentId: questo campo è il corrispettivo di "id" ma si riferisce al campo del commento a cui questo commento risponde.
 
+![Immagine2](https://user-images.githubusercontent.com/95300131/147212556-3957e55c-6dd2-40ec-80dc-1664e7b6e344.png)
+
 # Rotte disponibili
 
 # /comments
