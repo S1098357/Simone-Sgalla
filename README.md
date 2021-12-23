@@ -53,7 +53,10 @@ Quando viene avviata questa rotta il programma tramite l'API di facebook for dev
 
 # /posts
 
-Quando viene avviata questa rotta il programma riceve in input il file JSON fornito dall'API di facebook for developers che verrà visualizzato dall'utente senza che il programma lo modifichi in alcun modo. Questo fa si che l'utente possa accedere ai dati richiesti per avviare le rotte più specifiche. I campi forniti dall'API sono: i messaggi contenuti nei post, l'id dei post visualizzati, il momento della creazione dei post viualizzati.
+Quando viene avviata questa rotta il programma riceve in input il file JSON fornito dall'API di facebook for developers che verrà visualizzato dall'utente senza che il programma lo modifichi in alcun modo. Questo fa si che l'utente possa accedere ai dati richiesti per avviare le rotte più specifiche. I campi forniti dall'API sono: i messaggi contenuti nei post, l'id dei post visualizzati, il momento della creazione dei post viualizzati. I post vengono visualizzati dall'utente nel modo seguente:
+
+![Immagine4](https://user-images.githubusercontent.com/95300131/147214599-24b8bcbb-de18-4342-92f4-1d1e63999938.png)
+
 
 # /posts/{postId}/comments
 
