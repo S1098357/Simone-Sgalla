@@ -86,6 +86,11 @@ Questa rotta contiene tutte le statistiche effettuate dall'applicazione sui comm
 
 8)Numero commenti per utente: questa statistica fornisce all'utente il numero di commenti generati dal profilo facebook "name2". Questo avviene prendendo in esame la lista che viene visualizzata dall'utente avviando la rotta "/comments". Nel caso in cui non vi sia alcun commento generato dal profilo "name2", l'utente visualizza la stringa relativa all'errore "invalidNameException" che spiega l'errore commesso.
 
+Le statistiche vengono visualizzate dall'utente nella maniera seguente:
+
+![Immagine6](https://user-images.githubusercontent.com/95300131/147215362-d8e150c3-51fa-4705-9a06-12ac9707f1d3.png)
+
+
 # /filters/{date}/{hour}/{name}
 
 Questa rotta contiene tutti i filtri effettuati dall'applicazione sui commenti. Questi si suddividono in:
