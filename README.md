@@ -42,7 +42,7 @@ COMMENT è la classe fondante della nostra applicazione, essa è infatti la clas
   
  Il commento visualizzato dall'utente è di questo tipo:
 
-![Immagine1](https://user-images.githubusercontent.com/95300131/147213024-c0f41a7f-10fb-45b4-b63c-1551c6abadc0.png)
+![Immagine2](https://user-images.githubusercontent.com/95300131/147213422-d4bbc420-560d-45e7-b86a-4bce22b6e33c.png)
 
 
 # Rotte disponibili
