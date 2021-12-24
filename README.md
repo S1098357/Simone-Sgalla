@@ -28,9 +28,9 @@ COMMENT è la classe fondante della nostra applicazione, essa è infatti la clas
 
 9)likeCount: questo campo è di tipo "long" e contiene il numero di "like" al commento a cui questo campo appartiene.
 
-10)from: questo campo è di tipo "String" e contiene il nome dell'utente che ha creato il commento a cui questo campo appartiene (risulta non accessibile se non si può accedere al nome dell'utente per problemi di prvacy).
+10)from: questo campo è di tipo "String" e contiene il nome dell'utente che ha creato il commento a cui questo campo appartiene (risulta non accessibile se non si può accedere al nome dell'utente per problemi di privacy).
 
-11)Parent: questo campo è una classe separata da COMMENT e risulta null se il commento preso in esame non è un commento di risposta ad un altro commento. In caso contrario questo ccampo contiene a sua volta 4 campi:
+11)Parent: questo campo è una classe separata da COMMENT e risulta "null" se il commento preso in esame non è un commento di risposta ad un altro commento. In caso contrario questo campo contiene a sua volta 4 campi:
 
   11-1)parentCreatedTime: questo campo è il corrispettivo di "createdTime" ma si riferisce al campo del commento a cui questo commento risponde.
   
