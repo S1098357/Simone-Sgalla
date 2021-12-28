@@ -10,8 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import ProgettoPO.ProgettoProgrammazione.StatsFilters.CommentStats;
 import ProgettoPO.ProgettoProgrammazione.entities.Comment;
-import ProgettoPO.ProgettoProgrammazione.entities.CommentMethods;
-import ProgettoPO.ProgettoProgrammazione.exceptions.InvalidName;
 import ProgettoPO.ProgettoProgrammazione.services.*;
 
 
@@ -19,10 +17,12 @@ class statsTests {
 	
 	private CommentStats stats = new CommentStats();
 	CommentServiceImpl commentService = new CommentServiceImpl();
-	Vector <CommentMethods> lista = this.commentService.getAllComments();
+	Vector <Comment> lista = new Vector<Comment>();
 	
 	@BeforeEach
-	void setUp() throws Exception {};
+	void setUp() throws Exception {
+		lista = this.commentService.getAllComments();
+	};
 
 	
 	@AfterEach
@@ -31,7 +31,7 @@ class statsTests {
 	
 	@Test
 	void test() {
-		assertEquals (stats.mediaOrario(lista), "13:28");
+		assertEquals (stats.mediaOrario(lista), "13:27");
 	}
 	
 	@Test
@@ -41,12 +41,12 @@ class statsTests {
 	
 	@Test
 	void test2 () {
-		assertEquals (stats.orarioMin(lista), "07:25");
+		assertEquals (stats.orarioMin(lista), "7:25");
 	}
 
 	@Test 
 	void test3() {
-		assertEquals (stats.mediaLike(lista), "0.2");
+		assertEquals (stats.mediaLike(lista), "0.7");
 	}
 	
 	

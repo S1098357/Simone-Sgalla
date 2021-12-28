@@ -4,7 +4,7 @@ package ProgettoPO.ProgettoProgrammazione.entities;
  * Classe di commenti a parte. Serve per gestire le risposte ad un commento (sottocommenti) e tutti i loro attributi
  */
 
-public class CommentParents extends CommentMethods {
+public class CommentParents {
 
 	//Attributi di CommentParents
 	String CreatedTime;

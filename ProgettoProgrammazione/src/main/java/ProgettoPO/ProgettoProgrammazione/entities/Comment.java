@@ -2,10 +2,10 @@ package ProgettoPO.ProgettoProgrammazione.entities;
 
 import org.json.simple.JSONObject;
 /**
- * Classe figlia di CommentMethods. Contiene tutti gli attributi di un commento
+ * Classe che definisce l'entità da noi considerata. Contiene tutti gli attributi di un commento
  */
 
-public class Comment extends CommentMethods {
+public class Comment {
 		
 		//Attributi di un commento
 	        String id;
@@ -27,23 +27,21 @@ public class Comment extends CommentMethods {
 		 * Costruttore che prende come argomento un JSONObject. Questo ci servirà per prendere i dati direttamente dall'Api
 		 * e manipolarli. All'interno del costruttore sono definiti altri due JSONObject (all'interno dell'if) che serviranno 
 		 * uno per considerare anche le risposte ai commenti (come dei sottocommenti) e l'altro tutti i dati relativi al sottocommento.
-		 * 
 		 * @param commento JSONObject commento, oggetto da cui vengo prese le informazioni in Json
 		 */
 		
 		public Comment (JSONObject commento) {
 			super();
-				if (commento.get("parent")!=null) {
+			if (commento.get("parent")!=null) {
 				JSONObject parent = (JSONObject) commento.get("parent");
 				JSONObject parentFrom = (JSONObject) parent.get("from");
 				this.parent=new CommentParents((String)parent.get("created_time"),(String) parentFrom.get("name"),(String)parentFrom.get("id"),(String) parent.get("message"),(String) parent.get("id"));
 			}
 			this.id = (String) commento.get("id");
 			this.message = (String) commento.get("message");
-			if(commento.get("from")!=null)
-			{
-			JSONObject prova=(JSONObject) commento.get("from");
-			this.from=(String)prova.get("name");
+			if(commento.get("from")!=null) {
+				JSONObject prova=(JSONObject) commento.get("from");
+				this.from=(String)prova.get("name");
 			}
 			else this.from="non accessibile";
 			this.createdTime = (String) commento.get("created_time");
@@ -70,13 +68,6 @@ public class Comment extends CommentMethods {
 		public CommentParents getParent() {return parent;}
 		public String getFrom() {return from;}
 		
-		//Sono come i metodi get ma necessari per il funzionamento del programma
-		//Override dei ret della classe madre
-		public String retId() {return id;}
-		public String retCreatedTime() {return createdTime;}
-		public String retFrom() {return from;}
-		public Long retLikeCount() {return likeCount;}
-		public Long retCommentCount() {return commentCount;}
 		
 }
 

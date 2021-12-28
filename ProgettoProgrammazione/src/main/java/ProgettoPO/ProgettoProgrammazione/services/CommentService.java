@@ -4,10 +4,7 @@ package ProgettoPO.ProgettoProgrammazione.services;
 import java.util.Vector;
 
 import org.json.simple.JSONObject;
-
 import ProgettoPO.ProgettoProgrammazione.entities.Comment;
-import ProgettoPO.ProgettoProgrammazione.entities.CommentError;
-import ProgettoPO.ProgettoProgrammazione.entities.CommentMethods;
 import ProgettoPO.ProgettoProgrammazione.exceptions.CommentIdException;
 import ProgettoPO.ProgettoProgrammazione.exceptions.PostIdException;
 /**
@@ -17,8 +14,8 @@ import ProgettoPO.ProgettoProgrammazione.exceptions.PostIdException;
 public interface CommentService {
 
 	//Metodi
-	public Vector <CommentMethods> getComments(String postId) ;
-	public CommentMethods getComment(String commentId);
+	public Vector<Comment> getComments(String postId) throws PostIdException ;
+	public Comment getComment(String commentId) throws CommentIdException ;
 	public JSONObject getPosts();
-	public Vector<CommentMethods> getAllComments();
+	public Vector<Comment> getAllComments() throws PostIdException;
 }

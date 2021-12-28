@@ -16,11 +16,11 @@ public class CommentStats {
 	 * @return una stringa in cui è indicato l'orario medio
 	 */
 	
-	public String mediaOrario (Vector <CommentMethods> commenti) {
+	public String mediaOrario (Vector <Comment> commenti) {
 		int sommaOre=0, sommaMinuti = 0;
 		String ore, minuti;
 		for (int i = 0; i<commenti.size();i++) {
-			String orario = commenti.get(i).retCreatedTime();
+			String orario = commenti.get(i).getCreatedTime();
 			ore = orario.substring (11,13);
 			minuti = orario.substring(14, 16);
 			int ora = Integer.parseInt(ore);
@@ -44,12 +44,12 @@ public class CommentStats {
 	 * @return una stringa in cui è indicato l'orario più tardivo
 	 */
 	
-	public String orarioMax (Vector <CommentMethods> commenti) {
+	public String orarioMax (Vector <Comment> commenti) {
 		int[] ore = new int[commenti.size()];
 		int[] minuti = new int[commenti.size()];
 		int oraMax=0, minutiMax=0;
 		for (int i = 0; i<commenti.size();i++) {
-			String orario = commenti.get(i).retCreatedTime();
+			String orario = commenti.get(i).getCreatedTime();
 			ore[i] = Integer.parseInt(orario.substring (11,13));
 			minuti[i] = Integer.parseInt(orario.substring(14, 16));
 			if (ore[i]>oraMax) oraMax=ore[i];
@@ -70,12 +70,12 @@ public class CommentStats {
 	 * @return una stringa in cui è indicato l'orario minore
 	 */
 	
-	public String orarioMin (Vector <CommentMethods> commenti) {
+	public String orarioMin (Vector <Comment> commenti) {
 		int[] ore = new int[commenti.size()];
 		int[] minuti = new int[commenti.size()];
 		int oraMin=23, minutiMin=59;
 		for (int i = 0; i<commenti.size();i++) {
-			String orario = commenti.get(i).retCreatedTime();
+			String orario = commenti.get(i).getCreatedTime();
 			ore[i] = Integer.parseInt(orario.substring (11,13));
 			minuti[i] = Integer.parseInt(orario.substring(14, 16));
 			if (ore[i]<oraMin) oraMin=ore[i];
@@ -96,13 +96,12 @@ public class CommentStats {
 	 * @return una stringa in cui è indicata la media di like
 	 */
 	
-	public String mediaLike(List<CommentMethods> listaCommenti)
+	public String mediaLike(List<Comment> listaCommenti)
 	{
 		int media=0;
 		String Media;
 		String resto;
-		for(int i=0; i<listaCommenti.size();i++)
-			media+=listaCommenti.get(i).retLikeCount();
+		for(int i=0; i<listaCommenti.size();i++) media+=listaCommenti.get(i).getLikeCount();
 		Media=Integer.toString(media/listaCommenti.size());
 		resto=Integer.toString(media%listaCommenti.size());
 		return Media+"."+resto;
@@ -114,12 +113,11 @@ public class CommentStats {
 	 * @return una stringa in cui è indicata la media di risposte
 	 */
 	
-	public String mediaRisposte(List<CommentMethods> listaCommenti)
+	public String mediaRisposte(List<Comment> listaCommenti)
 	{
 		int media=0;
 		String resto,Media;
-		for(int i=0; i<listaCommenti.size();i++)
-			media+=listaCommenti.get(i).retCommentCount();
+		for(int i=0; i<listaCommenti.size();i++) media+=listaCommenti.get(i).getCommentCount();
 		Media=Integer.toString(media/listaCommenti.size());
 		resto=Integer.toString(media%listaCommenti.size());
 		return Media+"."+resto;
@@ -131,7 +129,7 @@ public class CommentStats {
 	 * @return una stringa in cui è indicata la media di commenti al giorno
 	 */
 	
-	public String mediaCommentiAlGiorno(List<CommentMethods> listaCommenti)
+	public String mediaCommentiAlGiorno(List<Comment> listaCommenti)
 	{
 		String media;
 		String resto;
@@ -141,7 +139,7 @@ public class CommentStats {
 		String appoggio;
 		for(int i=0; i<listaCommenti.size();i++)
 		{
-			appoggio=listaCommenti.get(i).retCreatedTime();
+			appoggio=listaCommenti.get(i).getCreatedTime();
 			appoggio = appoggio.substring(8, 10);
 			giorno=Integer.parseInt(appoggio);
 			if(giorno<giornoMin) giornoMin=giorno;
@@ -158,54 +156,44 @@ public class CommentStats {
 	  * @param listaCommenti lista di commenti popolata mediante la funzione getAllComments
 	  * @param utenteScelto Nome dell'utente, inserito dall'utente, di cui si uole sapere il numero totale di commenti
 	  * @return una stringa contentente il numero di commenti se l'utente inserito ha commentato
-	  * @return il messaggio di errore personalizzato nel caso in cui l'utente inserito non ha commentato
+	  * @throws InvalidName 
 	  */
 	
-	public String numCommentiUtente(List<CommentMethods> listaCommenti, String utenteScelto) {
+	public String numCommentiUtente(List<Comment> listaCommenti, String utenteScelto) throws InvalidName {
 		String utente;
 		int contatore=0;
 		for(int i=0; i<listaCommenti.size();i++)
 		{
-			utente=listaCommenti.get(i).retFrom();
+			utente=listaCommenti.get(i).getFrom();
 			if(utente.equals(utenteScelto))contatore++;
 		}
 		utente = Integer.toString(contatore);
-		if (contatore==0) {
-			CommentError a = new CommentError();
-			a.setErrore(new InvalidName());
-			return a.getErrore();
-		}
+		if (contatore==0) throw new InvalidName();
 		return utente;
-}
-	
+		}
+		
 	/**
 	 * Metodo che indica gli orario in cui sono stati fatti i commenti di un determinato utente
 	 * @param listaCommenti lista di commenti popolata mediante la funzione getAllComments
 	 * @param utenteScelto Nome dell'utente, inserito dall'utente, di cui si vogliono sapere gli orari dei commenti
 	 * @return una lista di stringa in cui sono indicati gli orari dei commenti dell'utente inserito nel caso in cui l'utente 
 	 * inserito abbia commentato
-	 * @return una lista contenente un singolo messaggio di errore nel caso in cui l'utente inserito non abbia commentato
+	 * @throws InvalidName 
 	 */
 	
-	public Vector<String> frequenzaUtente (List<CommentMethods> listaCommenti, String utenteScelto) 
-	{
+	public Vector<String> frequenzaUtente (Vector<Comment> listaCommenti, String utenteScelto) throws InvalidName {
 		int contatore=0;
 		String utente;
 		Vector<String> nuovaLista=new Vector<String>();
 		for(int i=0; i<listaCommenti.size();i++)
 		{
-			utente=listaCommenti.get(i).retFrom();
+			utente=listaCommenti.get(i).getFrom();
 			if(utente.equals(utenteScelto)) {
 				contatore++;
-				nuovaLista.add(contatore+"°"+ " Commento alle ore: " + listaCommenti.get(i).retCreatedTime());
+				nuovaLista.add(contatore+"°"+ " Commento alle ore: " + listaCommenti.get(i).getCreatedTime());
 			}
 		}
-		if (contatore==0) {
-			CommentError a = new CommentError();
-			a.setErrore(new InvalidName());
-			nuovaLista.add(a.getErrore());
-			return nuovaLista;
-		}
+		if (contatore==0) throw new InvalidName();
 		return nuovaLista;
 	}
 }

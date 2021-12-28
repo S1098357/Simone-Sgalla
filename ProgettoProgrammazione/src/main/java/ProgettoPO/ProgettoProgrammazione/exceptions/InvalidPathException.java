@@ -1,6 +1,6 @@
 package ProgettoPO.ProgettoProgrammazione.exceptions;
 
-public class InvalidPathException extends MotherEx {
+public class InvalidPathException extends Exception {
 	String errore = "Path non esistente" ;
 	
 	public InvalidPathException () {

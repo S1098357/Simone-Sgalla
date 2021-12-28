@@ -4,13 +4,14 @@ package ProgettoPO.ProgettoProgrammazione.controller;
 import org.springframework.web.bind.annotation.RestController;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import java.lang.Exception;
 
 import ProgettoPO.ProgettoProgrammazione.StatsFilters.*;
-import ProgettoPO.ProgettoProgrammazione.entities.CommentError;
-import ProgettoPO.ProgettoProgrammazione.entities.CommentMethods;
+import ProgettoPO.ProgettoProgrammazione.entities.Comment;
 import ProgettoPO.ProgettoProgrammazione.services.CommentServiceImpl;
 import ProgettoPO.ProgettoProgrammazione.exceptions.*;
 
@@ -46,34 +47,47 @@ public class MyController {
 	 * @see CommentMethods
 	 * @param postId PathVariable postId, ovvero una stringa variabile (scelta dall'utente) che viene messa nel path
 	 * @return la lista dei commenti sotto un determinato post, di cui si inserisce l'id
+	 * @throws PostIdException se l'id inserito non è corretto
 	 */
 	
 	@GetMapping("/posts/{postId}/comments")
-	public Vector <CommentMethods> getComments (@PathVariable String postId) {
-		return this.commentService.getComments(postId); 
-	}
+	public ResponseEntity <Object> getComments (@PathVariable String postId) {
+		commentService.listaCommenti.clear();
+		try {
+			return new ResponseEntity<>(this.commentService.getComments(postId), HttpStatus.OK);
+		} catch (PostIdException e) {
+			return new ResponseEntity<> (e.getErrore(), HttpStatus.BAD_REQUEST);
+		}
+		} 
 	
+		
 	/**
 	 * Terzo GetMapping: viene lanciata la funzione che restituisce un singolo commento tramite id, inserito dall'utente
 	 * @see CommentMethods
 	 * @param id PathVariable id, ovvero una stringa variabile (scelta dall'utente) che viene messa nel path
-	 * @return il singolo commento du cui si inserisce l'id
+	 * @return il singolo commento di cui si inserisce l'id
+	 * @throws CommentIdException se l'id inserito non è corretto
 	 */
 	
 	@GetMapping("/posts/{postId}/comments/{id}")
-	public CommentMethods getComment (@PathVariable String id) {
-		CommentMethods risposta = this.commentService.getComment(id);
-		return risposta;
+	public ResponseEntity<Object> getComment (@PathVariable String id) {
+		try {
+			return new ResponseEntity<> (this.commentService.getComment(id), HttpStatus.OK);
+		} catch (CommentIdException e) {
+			return new ResponseEntity<> (e.getErrore(), HttpStatus.BAD_REQUEST);
+		}
+	
 	}
 	
 	/**
 	 * Quarto GetMapping: viene lanciata la funzione che restituisce tutti i commenti presenti sotto tutti i post della pagina
 	 * @see CommentMethods
 	 * @return la lista di tutti i commenti
+	 * @throws PostIdException 
 	 */
 	
 	@GetMapping("/comments")
-	public Vector<CommentMethods> getAllComments () {
+	public Vector<Comment> getAllComments () throws PostIdException {
 		return this.commentService.getAllComments();
 	}
 	
@@ -84,22 +98,27 @@ public class MyController {
 	 * @param name2 PathVariable name2, ovvero una stringa variabile (scelta dall'utente) che viene messa nel path.
 	 * Si riferisce al nome dell'utente di cui si vuole calcolare il numero di commenti totali nella pagina.
 	 * @return la lista con tutte le statistiche indicate
+	 * @throws PostIdException
 	 */
 	
 	@GetMapping ("/stats/{name1}/{name2}")
-	public Vector<String> getStats (@PathVariable String name1, @PathVariable String name2)  {
-		//Vector<String> stats = new Vector <String>();
-		Vector <CommentMethods> lista = this.commentService.getAllComments();
-		Vector<String> stats = this.stats.frequenzaUtente(lista, name1);
-		stats.add("Media dell'orario: "+this.stats.mediaOrario(lista));
-		stats.add("Orario massimo: "+this.stats.orarioMax(lista));
-	    stats.add("Orario minimo: "+this.stats.orarioMin(lista));
-		stats.add("Media  Commenti al giorno. "+this.stats.mediaCommentiAlGiorno(lista));
-	    stats.add("Media Like per commento: "+this.stats.mediaLike(lista));
-	    stats.add("Media Risposta per commento: " + this.stats.mediaRisposte(lista));
-	    stats.add("Numero commenti per utente: " + this.stats.numCommentiUtente(lista, name2));
-		return stats;
+	public ResponseEntity<Object> getStats (@PathVariable String name1, @PathVariable String name2) throws PostIdException  {
+		try {
+			Vector <Comment> lista = this.commentService.getAllComments();
+			Vector<String> stats = this.stats.frequenzaUtente(lista, name1);
+			stats.add("Media dell'orario: "+this.stats.mediaOrario(lista));
+			stats.add("Orario massimo: "+this.stats.orarioMax(lista));
+			stats.add("Orario minimo: "+this.stats.orarioMin(lista));
+			stats.add("Media  Commenti al giorno. "+this.stats.mediaCommentiAlGiorno(lista));
+			stats.add("Media Like per commento: "+this.stats.mediaLike(lista));
+			stats.add("Media Risposta per commento: " + this.stats.mediaRisposte(lista));
+			stats.add("Numero commenti per utente: " + this.stats.numCommentiUtente(lista, name2));
+			return new ResponseEntity<> (stats,HttpStatus.OK);
+		} catch (InvalidName e) {
+			return new ResponseEntity<> (e.getErrore(), HttpStatus.BAD_REQUEST);
+		}
 	}
+		
 	
 	/**
 	 * Sesto GetMapping: vengono lanciate tutte le funzioni relative ai filtri
@@ -111,16 +130,30 @@ public class MyController {
 	 * @param name PathVariable name, ovvero una stringa variabile (scelta dall'utente) che viene messa nel path.
 	 * Indica il nome dell'utente di cui si vogliono sapere i commenti
 	 * @return una lista di commenti che si riferiscono ai filtri indicati
+	 * @throws PostIdException 
+	 * @throws InvalidDate se la data inserita non è corretta
 	 */
 	
 	@GetMapping("/filters/{date}/{hour}/{name}")
-	public Vector <Vector<CommentMethods>> getFilters (@PathVariable int date,@PathVariable int hour,@PathVariable String name) {
-		Vector <CommentMethods> lista = this.commentService.getAllComments();
-		Vector <Vector<CommentMethods>> filters = new Vector <Vector <CommentMethods>>(); 
-		filters.add(this.filters.filtroGiorni(lista, date));
-		filters.add(this.filters.filtroOre(lista, hour));
-		filters.add(this.filters.filtroUtenti(lista, name));
-		return filters;
+	public ResponseEntity<Object> getFilters (@PathVariable int date,@PathVariable int hour,@PathVariable String name) throws PostIdException, InvalidDate {
+		Vector <Comment> lista = this.commentService.getAllComments();
+		Vector <Vector<Comment>> filters = new Vector <Vector <Comment>>(); 
+		try {
+			filters.add(this.filters.filtroGiorni(lista, date));
+		} catch (InvalidDate a) {
+			return new ResponseEntity<>(a.getErrore(),HttpStatus.BAD_REQUEST);
+		}
+		try {
+			filters.add(this.filters.filtroOre(lista, hour));
+		} catch (InvalidHour a) {
+			return new ResponseEntity<>(a.getErrore(),HttpStatus.BAD_REQUEST);
+		}
+		try {
+			filters.add(this.filters.filtroUtenti(lista, name));
+		} catch (InvalidName a) {
+			return new ResponseEntity<>(a.getErrore(),HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<> (filters, HttpStatus.OK);
 	}
 	
 	/**
@@ -129,10 +162,12 @@ public class MyController {
 	 */
 	
 	@GetMapping("/{path}")
-	public String Ex() {
-		CommentError a = new CommentError();
-		a.setErrore(new InvalidPathException());
-		return a.getErrore();
+	public ResponseEntity<Object> Ex() throws InvalidPathException {
+		try {
+			throw new InvalidPathException();
+		} catch (InvalidPathException e) {
+			return new ResponseEntity<> (e.getErrore(), HttpStatus.BAD_REQUEST);
+		}
 	}
 	 
 }

@@ -1,6 +1,6 @@
 package ProgettoPO.ProgettoProgrammazione.exceptions;
 
-public class InvalidHour extends MotherEx {
+public class InvalidHour extends Exception{
 	String errore = "Non esistono commenti a quest'ora";
 	
 	public InvalidHour () {

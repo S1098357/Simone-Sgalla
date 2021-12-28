@@ -1,6 +1,6 @@
 package ProgettoPO.ProgettoProgrammazione.exceptions;
 
-public class InvalidDate extends MotherEx {
+public class InvalidDate extends Exception {
 	
 	public String errore = "Non esistono commenti in questa data"; 
 	

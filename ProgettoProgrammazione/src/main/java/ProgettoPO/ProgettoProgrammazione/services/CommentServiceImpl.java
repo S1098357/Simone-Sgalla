@@ -16,8 +16,6 @@ import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
 import ProgettoPO.ProgettoProgrammazione.entities.Comment;
-import ProgettoPO.ProgettoProgrammazione.entities.CommentError;
-import ProgettoPO.ProgettoProgrammazione.entities.CommentMethods;
 import ProgettoPO.ProgettoProgrammazione.exceptions.*;
 
 /**
@@ -26,7 +24,8 @@ import ProgettoPO.ProgettoProgrammazione.exceptions.*;
 
 @Service
 public class CommentServiceImpl implements CommentService {
-	public Vector <CommentMethods> listaCommenti=new Vector<CommentMethods>(); 
+	public Vector <Comment> listaCommenti = new Vector<Comment>();
+	
 	
 	/**
 	 * Metodo che permette di scaricare tutti i dati dell'Api sotto forma di JSONObject. Accetta come argomento un url di 
@@ -39,17 +38,16 @@ public class CommentServiceImpl implements CommentService {
 		try {
 			URLConnection openConnection = new URL(url).openConnection();
 			InputStream in = openConnection.getInputStream();
-			
-			 String data = "";
-			 String line = "";
-			 try {
+			String data = "";
+			String line = "";
+			try {
 			   InputStreamReader inR = new InputStreamReader( in );
 			   BufferedReader buf = new BufferedReader( inR );
-			  
 			   while (( line = buf.readLine()) != null ) {
 				   data+= line;
 			   }
-			 } finally {
+			 } 
+			finally {
 			   in.close();
 			 }
 			JSONObject obj = (JSONObject) JSONValue.parseWithException(data);	
@@ -64,6 +62,7 @@ public class CommentServiceImpl implements CommentService {
 	 * Metodo che restituisce sotto forma di JSONObject tutti i post di una pagina Facebook
 	 * @return Restituisce un oggetto (JSONObject) contenente tutti i post della pagina di cui si inserisce l'AccessToken
 	 */
+	
 	@Override
 	public JSONObject getPosts() {
 		return this.downloadApi("https://graph.facebook.com/me?fields=posts&access_token=");
@@ -71,43 +70,34 @@ public class CommentServiceImpl implements CommentService {
 
 	/**
 	 * Metodo che restituisce tutti i commenti, e le relative informazioni, sotto ad un determinato post
-	 * @see CommentMethods
+	 * @see Comment
 	 * @param postId Id del post di cui si vuole avere i commenti
-	 * @return Una lista di Comment (commenti) sotto ad un determinato post nel caso in cui l'id inserito sia valido
-	 * @return Una lista di CommentError con un solo elemento (messaggio di errore) nel caso in cui l'id inserito non sia valido
+	 * @return Una lista di Comment sotto ad un determinato post nel caso in cui l'id inserito sia valido
+	 * @throws PostIdException 
 	 */
+	
 	@Override
-	public  Vector <CommentMethods> getComments(String postId) {
+	public Vector<Comment> getComments(String postId) throws PostIdException {
 		JSONObject prova=null;
 		String preUrl="https://graph.facebook.com/";
 		String id;
 		String postUrl="?fields=parent,id,message,from,created_time,permalink_url,can_comment,can_like,user_likes,comment_count,like_count&access_token=";
 		String postPostUrl="/comments?access_token=";
-		//try {
 		prova=this.downloadApi(preUrl+postId+postPostUrl);
-		if (prova==null) {
-			//throw new PostIdException();
-		//} catch (Exception e) {
-			CommentError a = new CommentError();
-			a.setErrore(new PostIdException());
-			listaCommenti.add(a);
-		//}
-		  return listaCommenti;
-		}
+		JSONObject commento;
+		JSONArray risposte;
+		if (prova==null) throw new PostIdException();
 		JSONArray obj=(JSONArray)prova.get("data");
-		for(int i=0;i<obj.size();i++)
-		{
-		prova=(JSONObject) obj.get(i);
-		id=(String)prova.get("id");
-		JSONObject commento=this.downloadApi(preUrl+id+postUrl);
-		this.listaCommenti.add(new Comment(commento));
-		id=(String)commento.get("id");
-		commento=this.downloadApi(preUrl+id+postPostUrl);
-		if(commento.get("data")!=null)
-			{
-			JSONArray risposte= (JSONArray) commento.get("data");
-				for(int j=0;j<risposte.size();j++)
-				{
+		for(int i=0;i<obj.size();i++) {
+			prova=(JSONObject) obj.get(i);
+			id=(String)prova.get("id");
+			commento=this.downloadApi(preUrl+id+postUrl);
+			this.listaCommenti.add(new Comment(commento));
+			id=(String)commento.get("id");
+			commento=this.downloadApi(preUrl+id+postPostUrl);
+			if(commento.get("data")!=null) {
+				risposte= (JSONArray) commento.get("data");
+				for(int j=0;j<risposte.size();j++) {
 					commento=(JSONObject)risposte.get(j);
 					id=(String) commento.get("id");
 					this.listaCommenti.add(new Comment(this.downloadApi(preUrl+id+postUrl)));
@@ -120,44 +110,43 @@ public class CommentServiceImpl implements CommentService {
 	
 	/**
 	 * Metodo che restituisce un singolo commento, ricercato tramite id, e tutte le sue informazioni
-	 * @see CommentMethod
+	 * @see Comment
 	 * @param id Id del commento di cui si vogliono le informazioni
 	 * @return il commento (Comment) singolo con quel determinato id, e le relative informazioni, 
 	 * preso dalla lista di commenti, nel caso in cui l'id sia valido
-	 * @return il commento (CommentError) con il messaggio di errore personalizzato nel caso in cui l'id non sia valido
+	 * @throws CommentIdException 
 	 */
+	
 	@Override
-	public CommentMethods getComment(String id)  {
+	public Comment getComment(String id) throws CommentIdException  {
 		for (int i=0;i<listaCommenti.size();i++)
 		{
-			if(id.equals(listaCommenti.get(i).retId()))
+			if(id.equals(listaCommenti.get(i).getId()))
 			{
 				return listaCommenti.get(i);
 			}
 		}
-		CommentError a = new CommentError();
-		a.setErrore(new CommentIdException());
-		return a;
-		
-	}
+		throw new CommentIdException();
+		}
 
 	/**
 	 * Metodo che restituisce tutti i commenti della pagina
-	 * @see CommentMethods
+	 * @see Comment
 	 * @return una lista di tutti i commenti (Comment) della pagina e le relative informazioni
+	 * @throws PostIdException 
 	 */
-	public Vector<CommentMethods> getAllComments () {
+	
+	public Vector <Comment> getAllComments () throws PostIdException {
 		this.listaCommenti.clear();
 		String id;
 		JSONObject prova=this.downloadApi("https://graph.facebook.com/101440919065369/posts?access_token=");
 		JSONArray obj=(JSONArray)prova.get("data");
-		for(int i=0;i<obj.size();i++)
-		{
-		prova=(JSONObject) obj.get(i);
-		id=(String)prova.get("id");
+		for(int i=0;i<obj.size();i++) {
+			prova=(JSONObject) obj.get(i);
+			id=(String)prova.get("id");
 			this.getComments(id);
 		}
-	return this.listaCommenti;
+	return listaCommenti;
 	}
 		
 		

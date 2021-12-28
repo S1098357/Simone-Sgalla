@@ -1,6 +1,6 @@
 package ProgettoPO.ProgettoProgrammazione.exceptions;
 
-public class InvalidName extends MotherEx{
+public class InvalidName extends Exception{
 	String errore = "Nome non valido...inserirne un altro" ;
 	
 	public InvalidName () {

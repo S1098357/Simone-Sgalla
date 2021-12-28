@@ -1,6 +1,6 @@
 package ProgettoPO.ProgettoProgrammazione.exceptions;
 
-public class PostIdException extends MotherEx{
+public class PostIdException extends Exception{
 	
 	String errore = "Id del post non valido" ;
 	
