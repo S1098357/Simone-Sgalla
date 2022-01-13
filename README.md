@@ -18,17 +18,17 @@ COMMENT è la classe fondante della nostra applicazione, essa è infatti la clas
 
 4)permaLinkUrl: in questo campo è contenuto il link per accedere al commento: dal link si risale al commento e lo si visualizza in facebook.
 
-5)canComment: questo campo è di tipo "boolean" e risulta "true" se è possibile rispondere al commento a cui questo campo appartiene e "false" in caso contrario.
+5)canComment: questo campo è di tipo "boolean" e risulta "true" se è possibile rispondere al commento in questione e "false" in caso contrario.
 
-6)canLike: questo campo è di tipo "boolean" e risulta "true" se l'utente può mettere mi piace al commento a cui questo campo appartiene e "false" in caso contrario.
+6)canLike: questo campo è di tipo "boolean" e risulta "true" se l'utente può mettere mi piace al commento in questione e "false" in caso contrario.
 
-7)userLikes: questo campo è di tipo "boolean" e risulta "true" se l'utente ha messo mi piace al commento a cui questo campo appartiene e "false" in caso contrario.
+7)userLikes: questo campo è di tipo "boolean" e risulta "true" se l'utente ha messo mi piace al commento in questione e "false" in caso contrario.
 
-8)commentCount: questo campo è di tipo "long" e contiene il numero di risposte al commento a cui questo campo appartiene.
+8)commentCount: questo campo è di tipo "long" e contiene il numero di risposte al commento in questione.
 
-9)likeCount: questo campo è di tipo "long" e contiene il numero di "like" al commento a cui questo campo appartiene.
+9)likeCount: questo campo è di tipo "long" e contiene il numero di "like" al commento in questione.
 
-10)from: questo campo è di tipo "String" e contiene il nome dell'utente che ha creato il commento a cui questo campo appartiene (risulta non accessibile se non si può accedere al nome dell'utente per problemi di privacy).
+10)from: questo campo è di tipo "String" e contiene il nome dell'utente che ha creato il commento in questione (risulta non accessibile se non si può accedere al nome dell'utente per problemi di privacy).
 
 11)Parent: questo campo è una classe separata da COMMENT e risulta "null" se il commento preso in esame non è un commento di risposta ad un altro commento. In caso contrario questo campo contiene a sua volta 4 campi:
 
