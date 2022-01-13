@@ -25,7 +25,8 @@ import ProgettoPO.ProgettoProgrammazione.exceptions.*;
 @Service
 public class CommentServiceImpl implements CommentService {
 	public Vector <Comment> listaCommenti = new Vector<Comment>();
-	
+	String token1="EAAcBZAami7SkBAMdi8Fy8MEV4ABh7RgbKZBU4vNQZCeReUfXErbbYqktWZBsSFWmcG58ZAqx3HtTg6pfAE";
+	String token2="ArPZAkqOsFkiGxhd0dVI449UWeSMZCvuFHiE7n8BV1ZAlfZBolFz2ZB7QUPqfU7uZChZBH4I8WsEE3s46KsXkZAbRSkKi4Q9CFomIpfUtR63NqF1Yx6ksIZD";
 	
 	/**
 	 * Metodo che permette di scaricare tutti i dati dell'Api sotto forma di JSONObject. Accetta come argomento un url di 
@@ -65,7 +66,7 @@ public class CommentServiceImpl implements CommentService {
 	
 	@Override
 	public JSONObject getPosts() {
-		return this.downloadApi("https://graph.facebook.com/me?fields=posts&access_token=");
+		return this.downloadApi("https://graph.facebook.com/me?fields=posts&access_token="+token1+token2);
 		}
 
 	/**
@@ -81,8 +82,8 @@ public class CommentServiceImpl implements CommentService {
 		JSONObject prova=null;
 		String preUrl="https://graph.facebook.com/";
 		String id;
-		String postUrl="?fields=parent,id,message,from,created_time,permalink_url,can_comment,can_like,user_likes,comment_count,like_count&access_token=";
-		String postPostUrl="/comments?access_token=";
+		String postUrl="?fields=parent,id,message,from,created_time,permalink_url,can_comment,can_like,user_likes,comment_count,like_count&access_token="+token1+token2;
+		String postPostUrl="/comments?access_token="+token1+token2;
 		prova=this.downloadApi(preUrl+postId+postPostUrl);
 		JSONObject commento;
 		JSONArray risposte;
@@ -139,7 +140,7 @@ public class CommentServiceImpl implements CommentService {
 	public Vector <Comment> getAllComments () throws PostIdException {
 		this.listaCommenti.clear();
 		String id;
-		JSONObject prova=this.downloadApi("https://graph.facebook.com/101440919065369/posts?access_token=");
+		JSONObject prova=this.downloadApi("https://graph.facebook.com/101440919065369/posts?access_token="+token1+token2);
 		JSONArray obj=(JSONArray)prova.get("data");
 		for(int i=0;i<obj.size();i++) {
 			prova=(JSONObject) obj.get(i);
