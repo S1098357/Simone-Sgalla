@@ -19,7 +19,6 @@ class exceptionsTests {
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		//prova1 = commentService.getComments("1");
 	};
 
 	@AfterEach
